@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+// https://contest.yandex.ru/contest/22450/run-report/157017632/
 public class SleightOfHand {
     // -------------------- FAST INPUT --------------------
     static final class FastIn {
