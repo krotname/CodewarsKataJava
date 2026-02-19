@@ -17,13 +17,14 @@ public class Distances {
             dist[i] = i - lastZero;
         }
 
-        int nextZero = n;
+        int nextZero = lastZero;
         for (int i = lastZero; i >= 0; i--) {
             if (a[i] == 0) nextZero = i;
             dist[i] = Math.min(dist[i], nextZero - i);
         }
         return dist;
     }
+
 
     // -------------------- FAST INPUT --------------------
     static final class FastIn {
