@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Arrays;
 
-// https://contest.yandex.ru/contest/22450/run-report/157017559/
+// https://contest.yandex.ru/contest/22450/run-report/157289807/
 public class Distances {
 
     // -------------------- SOLUTION --------------------
