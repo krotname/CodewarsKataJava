@@ -1,40 +1,43 @@
+import java.io.ByteArrayInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /*
-Принцип работы алгоритма:
-- Выражение в обратной польской нотации читается слева направо по токенам (разделитель — пробел).
-- Используется стек целых чисел.
-  * Если токен — число, кладём его в стек.
-  * Если токен — операция (+, -, *, /), достаём два верхних значения b и a (сначала b, потом a),
-    вычисляем a (op) b и результат кладём обратно в стек.
-- После обработки всех токенов ответ — верхний элемент стека (даже если элементов больше одного).
+Принцип:
+- Читаем токены ОПН слева направо.
+- Число -> push в стек.
+- Операция -> pop b, pop a, считаем a op b, push результат.
+- Ответ: верх стека.
 
 Корректность:
-- Инвариант: после обработки первых i токенов стек содержит значения всех уже полностью вычисленных
-  подвыражений, которые по правилам ОПН должны ждать дальнейших операций.
-- При чтении числа инвариант сохраняется: число становится готовым операндом и помещается в стек.
-- При чтении операции по определению ОПН она применяется к двум ближайшим слева операндам,
-  которые и лежат на вершине стека в нужном порядке добавления. Мы снимаем b и a и кладём результат,
-  тем самым заменяя эти два операнда на значение их подвыражения — инвариант сохраняется.
-- Для деления используется Math.floorDiv(a, b), что соответствует требованию “округление вниз” (floor).
-  По условию деления на отрицательное число нет, но a может быть отрицательным — floorDiv это корректно обрабатывает.
+- В ОПН операция применяется к двум ближайшим слева операндам; к моменту чтения операции они лежат
+  на вершине стека. Мы заменяем эти два значения на результат, сохраняя корректное состояние.
+- Деление требуется “вниз” (floor), поэтому используем Math.floorDiv(a, b).
 
-Оценка сложности:
-- Время: O(m), где m — число токенов (каждый токен обрабатывается за O(1)).
-- Память: O(s), где s — максимальный размер стека (в худшем случае O(m)).
+Сложность:
+- Время O(m), m — число токенов.
+- Память O(s), s — максимальный размер стека (в худшем O(m)).
 */
 public class Calculator {
 
-    // -------------------- SOLUTION --------------------
-    static int evalRpn(FastIn in) throws IOException {
-        IntStack st = new IntStack(64);
+    private static int eval(FastIn in) throws IOException {
+        Deque<Integer> st = new ArrayDeque<>();
 
-        String tok;
-        while ((tok = in.nextOrNull()) != null) {
-            if (tok.length() == 1) {
-                char op = tok.charAt(0);
+        while (true) {
+            String t;
+            try {
+                t = in.next();
+            } catch (EOFException e) {
+                break;
+            }
+
+            if (t.length() == 1) {
+                char op = t.charAt(0);
                 if (op == '+' || op == '-' || op == '*' || op == '/') {
                     int b = st.pop();
                     int a = st.pop();
@@ -54,45 +57,19 @@ public class Calculator {
                     continue;
                 }
             }
-            st.push(Integer.parseInt(tok));
+
+            st.push(Integer.parseInt(t));
         }
 
         return st.peek();
-    }
-
-    // -------------------- INT STACK --------------------
-    static final class IntStack {
-        private int[] a;
-        private int sz;
-
-        IntStack(int cap) {
-            this.a = new int[Math.max(2, cap)];
-            this.sz = 0;
-        }
-
-        void push(int v) {
-            if (sz == a.length) {
-                int[] b = new int[a.length << 1];
-                System.arraycopy(a, 0, b, 0, a.length);
-                a = b;
-            }
-            a[sz++] = v;
-        }
-
-        int pop() {
-            return a[--sz];
-        }
-
-        int peek() {
-            return a[sz - 1];
-        }
     }
 
     // -------------------- FAST INPUT --------------------
     static final class FastIn {
         private final InputStream in;
         private final byte[] buf = new byte[1 << 16];
-        private int ptr = 0, len = 0;
+        private int ptr = 0;
+        private int len = 0;
 
         FastIn(InputStream in) {
             this.in = in;
@@ -109,12 +86,12 @@ public class Calculator {
             return buf[ptr++];
         }
 
-        String nextOrNull() throws IOException {
+        String next() throws IOException {
             int c;
             do {
                 c = read();
                 if (c == -1) {
-                    return null;
+                    throw new EOFException("EOF");
                 }
             } while (c <= ' ');
 
@@ -187,38 +164,30 @@ public class Calculator {
         FastIn in = new FastIn(System.in);
         FastOut out = new FastOut(System.out);
 
-        int ans = evalRpn(in);
+        int ans = eval(in);
 
         out.writeInt(ans);
         out.writeByte('\n');
         out.flush();
     }
 
+    // -------------------- LOCAL TESTS --------------------
     private static void test() throws Exception {
         assertEq(9, evalFromString("2 1 + 3 *"));
         assertEq(38, evalFromString("7 2 + 4 * 2 +"));
-
-        // деление “вниз”
         assertEq(-1, evalFromString("-1 3 /"));
         assertEq(-2, evalFromString("-4 3 /"));
-
-        // порядок операндов
         assertEq(2, evalFromString("10 2 4 * -"));
-
-        // одно число
         assertEq(5, evalFromString("5"));
-
         System.out.println("Test OK");
     }
 
     private static int evalFromString(String s) throws Exception {
-        InputStream is = new java.io.ByteArrayInputStream(
-                s.getBytes(java.nio.charset.StandardCharsets.US_ASCII)
-        );
-        return evalRpn(new FastIn(is));
+        InputStream is = new ByteArrayInputStream(s.getBytes(StandardCharsets.US_ASCII));
+        return eval(new FastIn(is));
     }
 
-    static void assertEq(int exp, int act) {
+    private static void assertEq(int exp, int act) {
         if (exp != act) {
             throw new AssertionError("Expected=" + exp + ", actual=" + act);
         }
