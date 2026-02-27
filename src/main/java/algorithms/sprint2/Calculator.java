@@ -10,8 +10,8 @@ import java.util.Deque;
 /*
 Принцип:
 - Читаем токены ОПН слева направо.
-- Число -> push в стек.
-- Операция -> pop b, pop a, считаем a op b, push результат.
+- Если считанный символ - Число -> push в стек.
+- Если считанный символ - Математическая Операция (+-*\) -> pop b, pop a, считаем a op b, push результат.
 - Ответ: верх стека.
 
 Корректность:
@@ -21,8 +21,10 @@ import java.util.Deque;
 
 Сложность:
 - Время O(m), m — число токенов.
-- Память O(s), s — максимальный размер стека (в худшем O(m)).
+- Память - в худшем O(m)
 */
+
+
 public class Calculator {
 
     private static int eval(FastIn in) throws IOException {
@@ -62,6 +64,47 @@ public class Calculator {
         }
 
         return st.peek();
+    }
+
+    private static void run() throws Exception {
+        FastIn in = new FastIn(System.in);
+        FastOut out = new FastOut(System.out);
+
+        int ans = eval(in);
+
+        out.writeInt(ans);
+        out.writeByte('\n');
+        out.flush();
+    }
+
+    // -------------------- LOCAL TESTS --------------------
+    private static void test() throws Exception {
+        assertEq(9, evalFromString("2 1 + 3 *"));
+        assertEq(38, evalFromString("7 2 + 4 * 2 +"));
+        assertEq(-1, evalFromString("-1 3 /"));
+        assertEq(-2, evalFromString("-4 3 /"));
+        assertEq(2, evalFromString("10 2 4 * -"));
+        assertEq(5, evalFromString("5"));
+        System.out.println("Test OK");
+    }
+
+    private static int evalFromString(String s) throws Exception {
+        InputStream is = new ByteArrayInputStream(s.getBytes(StandardCharsets.US_ASCII));
+        return eval(new FastIn(is));
+    }
+
+    private static void assertEq(int exp, int act) {
+        if (exp != act) {
+            throw new AssertionError("Expected=" + exp + ", actual=" + act);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            test();
+        } else {
+            run();
+        }
     }
 
     // -------------------- FAST INPUT --------------------
@@ -157,47 +200,6 @@ public class Calculator {
         void flush() throws IOException {
             out.write(buf, 0, p);
             p = 0;
-        }
-    }
-
-    private static void run() throws Exception {
-        FastIn in = new FastIn(System.in);
-        FastOut out = new FastOut(System.out);
-
-        int ans = eval(in);
-
-        out.writeInt(ans);
-        out.writeByte('\n');
-        out.flush();
-    }
-
-    // -------------------- LOCAL TESTS --------------------
-    private static void test() throws Exception {
-        assertEq(9, evalFromString("2 1 + 3 *"));
-        assertEq(38, evalFromString("7 2 + 4 * 2 +"));
-        assertEq(-1, evalFromString("-1 3 /"));
-        assertEq(-2, evalFromString("-4 3 /"));
-        assertEq(2, evalFromString("10 2 4 * -"));
-        assertEq(5, evalFromString("5"));
-        System.out.println("Test OK");
-    }
-
-    private static int evalFromString(String s) throws Exception {
-        InputStream is = new ByteArrayInputStream(s.getBytes(StandardCharsets.US_ASCII));
-        return eval(new FastIn(is));
-    }
-
-    private static void assertEq(int exp, int act) {
-        if (exp != act) {
-            throw new AssertionError("Expected=" + exp + ", actual=" + act);
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            test();
-        } else {
-            run();
         }
     }
 }
