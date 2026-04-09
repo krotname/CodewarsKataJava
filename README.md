@@ -12,7 +12,7 @@
 Добавлен `docker-compose.yml`, который поднимает:
 - WireGuard-клиент с подключением к существующему серверу Amnezia.
 - Proxy-сервис (3proxy), работающий через VPN-туннель.
-- Опционально `v2ray-server` (профиль `v2ray`).
+- Опционально `v2ray-server` (профиль `v2ray`) в том же network namespace, что и WireGuard.
 
 Логи отключены для контейнеров через `logging.driver: "none"`.
 
@@ -21,9 +21,10 @@
 - `proxy/3proxy.cfg` — прокси с авторизацией (шаблон без реальных логина/пароля).
 - `v2ray/server-config.json` — конфиг V2Ray-сервера (VMess + WS).
 
-### Доступ к прокси
-- SOCKS5: `127.0.0.1:1080`
-- HTTP: `127.0.0.1:3128`
+### Доступ к сервисам
+- SOCKS5 (3proxy): `127.0.0.1:1080`
+- HTTP (3proxy): `127.0.0.1:3128`
+- V2Ray VMess+WS: `127.0.0.1:10000`
 
 Перед запуском обязательно замените шаблонные значения:
 - `REPLACE_WITH_*` в `wireguard/wg_confs/wg0.conf` и `v2ray/server-config.json`
