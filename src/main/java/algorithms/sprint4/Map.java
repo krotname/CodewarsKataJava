@@ -1,8 +1,9 @@
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.OptionalInt;
 
-// https://contest.yandex.ru/contest/24414/run-report/160043341/
+// https://contest.yandex.ru/contest/24414/run-report/160371601/
 
 public class Map {
 
@@ -12,26 +13,38 @@ public class Map {
      * Есть массив бакетов. В каждом бакете лежит связный список элементов.
      *
      * Для ключа key:
-     * - считаем номер бакета;
+     * - считаем номер бакета по формуле key % SIZE;
+     *   если остаток отрицательный, прибавляем SIZE,
+     *   чтобы индекс был в диапазоне от 0 до SIZE - 1;
      * - идём по списку этого бакета;
-     * - put: если ключ нашли, обновляем значение, иначе добавляем новый узел;
+     * - put: если ключ нашли, обновляем значение, иначе
+     *   добавляем новый узел в начало списка бакета:
+     *   buckets[i] = new Node(key, value, buckets[i]);
      * - get: если нашли, выводим значение, иначе None;
-     * - delete: если нашли, удаляем узел и выводим значение, иначе None.
+     * - delete: если нашли, удаляем узел из списка:
+     *   если удаляется голова, делаем buckets[i] = cur.next,
+     *   иначе делаем prev.next = cur.next.
      *
      * Почему алгоритм корректен:
-     * - Каждый ключ всегда попадает в один и тот же бакет.
+     * - Каждый ключ всегда попадает в один и тот же бакет,
+     *   потому что функция index(key) зависит только от key и SIZE.
      * - Все элементы этого бакета хранятся в одном списке.
      * - Поэтому, если пройти весь список, мы точно:
      *   - найдём ключ, если он есть;
      *   - поймём, что его нет, если не нашли.
      *
      * Временная сложность:
-     * - put, get, delete — O(1) в среднем.
-     * - В худшем случае — O(s), где s — число элементов в таблице,
-     *   если все ключи попали в один бакет.
+     * - одна операция put, get или delete в среднем работает за O(1);
+     * - в худшем случае одна операция работает за O(n),
+     *   если все ключи попали в один бакет;
+     * - так как выполняется n команд, суммарная сложность программы
+     *   в среднем O(n), в худшем случае O(n^2).
      *
      * Пространственная сложность:
-     * - O(m + s), где m — число бакетов, s — число элементов в таблице.
+     * - в худшем случае таблица хранит до n элементов,
+     *   поэтому пространственная сложность O(n);
+     * - массив бакетов имеет фиксированный размер SIZE,
+     *   то есть даёт только константную добавку.
      */
 
     private static final int SIZE = 100_003;
@@ -74,21 +87,21 @@ public class Map {
             buckets[i] = new Node(key, value, buckets[i]);
         }
 
-        String get(int key) {
+        OptionalInt get(int key) {
             int i = index(key);
             Node cur = buckets[i];
 
             while (cur != null) {
                 if (cur.key == key) {
-                    return String.valueOf(cur.value);
+                    return OptionalInt.of(cur.value);
                 }
                 cur = cur.next;
             }
 
-            return "None";
+            return OptionalInt.empty();
         }
 
-        String delete(int key) {
+        OptionalInt delete(int key) {
             int i = index(key);
             Node cur = buckets[i];
             Node prev = null;
@@ -100,13 +113,13 @@ public class Map {
                     } else {
                         prev.next = cur.next;
                     }
-                    return String.valueOf(cur.value);
+                    return OptionalInt.of(cur.value);
                 }
                 prev = cur;
                 cur = cur.next;
             }
 
-            return "None";
+            return OptionalInt.empty();
         }
     }
 
@@ -179,9 +192,11 @@ public class Map {
                 int value = reader.nextInt();
                 table.put(key, value);
             } else if (command == 'g') {
-                out.append(table.get(key)).append('\n');
+                table.get(key).ifPresentOrElse(out::append, () -> out.append("None"));
+                out.append(System.lineSeparator());
             } else {
-                out.append(table.delete(key)).append('\n');
+                table.delete(key).ifPresentOrElse(out::append, () -> out.append("None"));
+                out.append(System.lineSeparator());
             }
         }
 
