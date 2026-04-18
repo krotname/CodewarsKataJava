@@ -1,42 +1,4 @@
-// https://contest.yandex.ru/contest/24810/run-report/160624033/
-
-// <template>
-class Node {
-    private int value;
-    private Node left;
-    private Node right;
-
-    Node(Node left, Node right, int value) {
-        this.left = left;
-        this.right = right;
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public Node getRight() {
-        return right;
-    }
-
-    public void setRight(Node right) {
-        this.right = right;
-    }
-
-    public Node getLeft() {
-        return left;
-    }
-
-    public void setLeft(Node left) {
-        this.left = left;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-}
-// <template>
+// https://contest.yandex.ru/contest/24810/run-report/160624089/
 
 public class Solution {
 
@@ -82,7 +44,8 @@ public class Solution {
      * Временная сложность: O(h), где h — высота дерева,
      * потому что мы спускаемся только по одному пути вниз.
      *
-     * Пространственная сложность: O(h) из-за стека рекурсии.
+     * Пространственная сложность: O(h) из-за стека рекурсии,
+     * где h — высота дерева.
      */
 
     public static Node remove(Node root, int key) {
@@ -120,35 +83,42 @@ public class Solution {
         }
         return node;
     }
+}
 
-    private static void test() {
-        Node node1 = new Node(null, null, 2);
-        Node node2 = new Node(node1, null, 3);
-        Node node3 = new Node(null, node2, 1);
-        Node node4 = new Node(null, null, 6);
-        Node node5 = new Node(node4, null, 8);
-        Node node6 = new Node(node5, null, 10);
-        Node node7 = new Node(node3, node6, 5);
+// <template>
+class Node {
+    private int value;
+    private Node left;
+    private Node right;
 
-        Node newHead = remove(node7, 10);
-        assert newHead.getValue() == 5;
-        assert newHead.getRight() == node5;
-        assert newHead.getRight().getValue() == 8;
+    Node(Node left, Node right, int value) {
+        this.left = left;
+        this.right = right;
+        this.value = value;
+    }
 
-        Node root = new Node(
-                new Node(new Node(null, null, 2), new Node(null, null, 4), 3),
-                new Node(new Node(null, null, 7), new Node(null, null, 9), 8),
-                5
-        );
-        Node result = remove(root, 5);
-        assert result.getValue() == 4;
-        assert result.getLeft().getValue() == 3;
-        assert result.getRight().getValue() == 8;
+    public int getValue() {
+        return value;
+    }
 
-        Node single = new Node(null, null, 1);
-        assert remove(single, 1) == null;
+    public Node getRight() {
+        return right;
+    }
 
-        Node unchanged = new Node(null, null, 1);
-        assert remove(unchanged, 2) == unchanged;
+    public void setRight(Node right) {
+        this.right = right;
+    }
+
+    public Node getLeft() {
+        return left;
+    }
+
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }
+// <template>
