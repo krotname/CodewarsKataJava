@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+//https://contest.yandex.ru/contest/24810/run-report/160623687/
+
 public class PyramidSort {
 
     /*
