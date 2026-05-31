@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+// https://contest.yandex.ru/contest/25070/run-report/162675302/
+
 public class WaterWorld {
 
     static int[] solve(byte[] map, int n, int m) {

@@ -29,6 +29,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 
+// https://contest.yandex.ru/contest/25070/run-report/162675299/
+
 public class DorogayaSet {
 
     static final String FAIL = "Oops! I did it again";
