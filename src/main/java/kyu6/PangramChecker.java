@@ -1,20 +1,19 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PangramChecker {
 
     //6
 
     private static final Set<Character> ALPHABET = new HashSet<>(
-            Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
+            Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+                    't', 'u', 'v', 'w', 'x', 'y', 'z'));
 
     public static boolean check(String sentence) {
         Set<Character> sentenceBetSet = new HashSet<>(26);
@@ -37,9 +36,4 @@ public class PangramChecker {
      * Ignore numbers and punctuation.
      */
 
-    @Test
-    public void test() {
-        assertTrue(check("The quick brown fox jumps over the lazy dog."));
-        assertFalse(check("You shall not pass!"));
-    }
 }

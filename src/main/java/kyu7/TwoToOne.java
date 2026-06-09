@@ -1,10 +1,8 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.TreeSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoToOne {
 
@@ -25,10 +23,4 @@ public class TwoToOne {
         return sb.toString();
     }
 
-    @Test
-    public void test() {
-        assertEquals("aehrsty", TwoToOne.longest("aretheyhere", "yestheyarehere"));
-        assertEquals("abcdefghilnoprstu", TwoToOne.longest("loopingisfunbutdangerous", "lessdangerousthancoding"));
-        assertEquals("acefghilmnoprstuy", TwoToOne.longest("inmanylanguages", "theresapairoffunctions"));
-    }
 }

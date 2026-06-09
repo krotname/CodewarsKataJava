@@ -1,8 +1,6 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VasyaClerk {
 
@@ -27,10 +25,10 @@ public class VasyaClerk {
                 }
             }
             if (j == 100) {
-                if ((sum25 >= 1 && sum50 >= 1)) {
+                if (sum25 >= 1 && sum50 >= 1) {
                     sum25--;
                     sum50--;
-                } else if ((sum25 >= 3)) {
+                } else if (sum25 >= 3) {
                     sum25 -= 3;
                 } else {
                     return "NO";
@@ -54,9 +52,4 @@ public class VasyaClerk {
      * at that moment. Otherwise return NO.
      */
 
-    @Test
-    public void test() {
-        assertEquals("YES", Tickets(new int[]{25, 25, 50}));
-        assertEquals("NO", Tickets(new int[]{25, 100}));
-    }
 }

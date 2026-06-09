@@ -1,7 +1,10 @@
+package algorithms.sprint1;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 // https://contest.yandex.ru/contest/22450/run-report/157017632/
 public class SleightOfHand {
@@ -39,7 +42,7 @@ public class SleightOfHand {
 
             int val = 0;
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
             return val * sign;
@@ -64,7 +67,7 @@ public class SleightOfHand {
                 c = read();
                 if (c == -1) break;
             }
-            return new String(tmp, 0, n);
+            return new String(tmp, 0, n, StandardCharsets.UTF_8);
         }
     }
 
@@ -125,13 +128,13 @@ public class SleightOfHand {
         int[] count = new int[10];
 
         for (int r = 0; r < 4; r++) {
-            String s = in.next();
+            StringBuilder row = new StringBuilder(in.next());
             // На всякий случай, если токенайзер разделит строку (обычно не будет)
-            while (s.length() < 4) {
-                s += in.next();
+            while (row.length() < 4) {
+                row.append(in.next());
             }
             for (int c = 0; c < 4; c++) {
-                char ch = s.charAt(c);
+                char ch = row.charAt(c);
                 if (ch != '.') {
                     count[ch - '0']++;
                 }

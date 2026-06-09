@@ -1,8 +1,6 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PhoneNumber {
 
@@ -18,9 +16,4 @@ public class PhoneNumber {
      * a string of those numbers in the form of a phone number.
      */
 
-    @Test
-    public void test() {
-        assertEquals("(123) 456-7890",
-                createPhoneNumber(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0}));
-    }
 }

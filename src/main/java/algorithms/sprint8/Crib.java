@@ -1,3 +1,5 @@
+package algorithms.sprint8;
+
 /*
 Принцип работы алгоритма:
 строим бор по допустимым словам. Затем запускаем динамику по тексту:
@@ -28,6 +30,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 public class Crib {
 
@@ -136,7 +139,7 @@ public class Crib {
 
             int val = 0;
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
             return val * sign;
@@ -165,7 +168,7 @@ public class Crib {
                     break;
                 }
             }
-            return new String(tmp, 0, n);
+            return new String(tmp, 0, n, StandardCharsets.UTF_8);
         }
     }
 

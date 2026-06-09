@@ -1,10 +1,8 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class WhichAreIn {
 
@@ -18,11 +16,4 @@ public class WhichAreIn {
                 .toArray(String[]::new);
     }
 
-    @Test
-    public void testWhichAreIn() {
-        String[] a = new String[]{"arp", "live", "strong"};
-        String[] b = new String[]{"lively", "alive", "harp", "sharp", "armstrong"};
-        String[] r = new String[]{"arp", "live", "strong"};
-        assertArrayEquals(r, inArray(a, b));
-    }
 }

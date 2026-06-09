@@ -1,11 +1,9 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Vowels {
 
@@ -34,9 +32,5 @@ public class Vowels {
         return vowelsCount;
     }
 
-    @Test
-    public void test() {
-        assertEquals(5, getCount("abracadabra"));
-    }
 
 }

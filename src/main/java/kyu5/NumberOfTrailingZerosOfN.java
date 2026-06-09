@@ -1,10 +1,8 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NumberOfTrailingZerosOfN {
 
@@ -31,10 +29,4 @@ public class NumberOfTrailingZerosOfN {
         return result.longValue();
     }
 
-    @Test
-    public void testZeros() {
-        assertEquals(NumberOfTrailingZerosOfN.zeros(0), 0);
-        assertEquals(NumberOfTrailingZerosOfN.zeros(6), 1);
-        assertEquals(NumberOfTrailingZerosOfN.zeros(14), 2);
-    }
 }

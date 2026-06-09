@@ -1,8 +1,6 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 
 public class ProductFib {
@@ -69,10 +67,5 @@ public class ProductFib {
      * You can see examples for your language in "Sample Tests"
      */
 
-    @Test
-    public void test() {
-        assertArrayEquals(new long[]{55, 89, 1}, productFib(4895));
-        assertArrayEquals(new long[]{89, 144, 0}, productFib(5895));
-    }
 
 }

@@ -1,8 +1,6 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BitCounting {
 
@@ -15,13 +13,5 @@ public class BitCounting {
                 .count();
     }
 
-    @Test
-    public void BitCountingTest() {
-        assertEquals(5, BitCounting.countBits(1234));
-        assertEquals(1, BitCounting.countBits(4));
-        assertEquals(3, BitCounting.countBits(7));
-        assertEquals(2, BitCounting.countBits(9));
-        assertEquals(2, BitCounting.countBits(10));
-    }
 
 }

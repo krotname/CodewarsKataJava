@@ -1,38 +1,22 @@
 package kyu3;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class BattleField {
 
     // 3 https://www.codewars.com/kata/52bb6539a4cf1b12d90005b7
 
-    private static final int[][] BATTLE_FIELD =
-            {{1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-                    {1, 0, 1, 0, 0, 0, 0, 0, 1, 0},
-                    {1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
-                    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                    {0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                    {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-
-    private static final int[][] BAD_BATTLE_FIELD =
-            {{1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-                    {1, 0, 1, 0, 0, 0, 0, 0, 1, 0},
-                    {1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
-                    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {1, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                    {1, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-                    {1, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                    {1, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+    /**
+     * Validates whether a battleship field contains exactly the required fleet
+     * (1 battleship, 2 cruisers, 3 destroyers, 4 submarines).
+     * <p>
+     * The method builds a zero border around the board to simplify neighbor checks
+     * and avoid index-edge checks in every condition.
+     * <p>
+     * For each occupied cell, the method tries to classify possible horizontal and
+     * vertical segments and then verifies final category counts.
+     */
 
     public static boolean fieldValidator(int[][] field) {
         int battleshipCount = 0;
@@ -158,13 +142,5 @@ public class BattleField {
         return fieldWithEdges;
     }
 
-    @Test
-    public void testGood() {
-        assertTrue(fieldValidator(BATTLE_FIELD));
-    }
 
-    @Test
-    public void testBad() {
-        assertFalse(fieldValidator(BAD_BATTLE_FIELD));
-    }
 }

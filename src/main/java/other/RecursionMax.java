@@ -1,16 +1,10 @@
 package other;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RecursionMax {
-
-    private static final ArrayList<Integer> TEST_INTEGERS = new ArrayList<>(Arrays.asList(19, 2, 4, 5, 4));
 
     public static int recursionMax(List<Integer> array) {
         if (array == null) {
@@ -19,15 +13,14 @@ public class RecursionMax {
         if (array.isEmpty()) {
             return -1;
         }
-        if (array.size() == 1) {
-            return array.get(0);
+        return recursionMax(array, 0, Integer.MIN_VALUE);
+    }
+
+    private static int recursionMax(List<Integer> array, int index, int currentMax) {
+        if (index == array.size()) {
+            return currentMax;
         }
-        if (array.size() == 2) {
-            return Math.max(array.get(0), array.get(1));
-        }
-        int min = Math.min(array.get(0), array.get(1));
-        array.remove((Integer) min);
-        return recursionMax(array);
+        return recursionMax(array, index + 1, Math.max(currentMax, array.get(index)));
     }
 
     public static int max(List<Integer> array) {
@@ -50,13 +43,5 @@ public class RecursionMax {
         return max;
     }
 
-    @Test
-    public void testMax() {
-        assertEquals(19, max(TEST_INTEGERS));
-    }
 
-    @Test
-    public void testRecursionMax() {
-        assertEquals(19, recursionMax(TEST_INTEGERS));
-    }
 }

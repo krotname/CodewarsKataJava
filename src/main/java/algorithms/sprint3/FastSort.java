@@ -1,3 +1,5 @@
+package algorithms.sprint3;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -149,7 +151,7 @@ public class FastSort {
 
             int value = 0;
             while (c > ' ') {
-                value = value * 10 + (c - '0');
+                value = value * 10 + c - '0';
                 c = read();
             }
             return value;
@@ -190,7 +192,13 @@ public class FastSort {
     }
 
     private static void test() {
-        Participant[] a = {new Participant("alla", 4, 100), new Participant("gena", 6, 1000), new Participant("gosha", 2, 90), new Participant("rita", 2, 90), new Participant("timofey", 4, 80)};
+        Participant[] a = {
+                new Participant("alla", 4, 100),
+                new Participant("gena", 6, 1000),
+                new Participant("gosha", 2, 90),
+                new Participant("rita", 2, 90),
+                new Participant("timofey", 4, 80)
+        };
 
         String expected = "gena\ntimofey\nalla\ngosha\nrita\n";
         String actual = solve(a);

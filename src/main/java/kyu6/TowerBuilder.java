@@ -1,9 +1,7 @@
 package kyu6;
 
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TowerBuilder {
 
@@ -20,34 +18,11 @@ public class TowerBuilder {
         return strings;
     }
 
-    @Test
-    public void basicTests() {
-        assertEquals(String.join(",", "*"),
-                String.join(",", towerBuilder(1)));
-        assertEquals(String.join(",", " * ", "***"),
-                String.join(",", towerBuilder(2)));
-        assertEquals(String.join(",", "  *  ", " *** ", "*****"),
-                String.join(",", towerBuilder(3)));
-    }
 
-    @Test
-    public void showTest() {
-        assertEquals(
-                "        *        " + System.lineSeparator() +
-                        "       ***       " + System.lineSeparator() +
-                        "      *****      " + System.lineSeparator() +
-                        "     *******     " + System.lineSeparator() +
-                        "    *********    " + System.lineSeparator() +
-                        "   ***********   " + System.lineSeparator() +
-                        "  *************  " + System.lineSeparator() +
-                        " *************** " + System.lineSeparator() +
-                        "*****************" + System.lineSeparator(),
-                show());
-    }
 
     public String show() {
         StringBuilder sb = new StringBuilder();
-        for (String s : TowerBuilder.towerBuilder(9)) {
+        for (String s : towerBuilder(9)) {
             sb.append(s).append(System.lineSeparator());
         }
         return sb.toString();

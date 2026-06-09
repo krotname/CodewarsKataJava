@@ -1,28 +1,26 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Metro {
 
     //6 https://www.codewars.com/kata/5648b12ce68d9daa6b000099/solutions/java
 
-    public static int countPassengers(ArrayList<int[]> stops) {
-        return stops.stream()
-                .reduce(((ints1, ints2) -> new int[]{ints1[0] + ints2[0], ints1[1] + ints2[1]}))
-                .map(ints -> ints[0] - ints[1])
-                .orElseThrow();
+    public static int countPassengers(List<int[]> stops) {
+        if (stops == null || stops.isEmpty()) {
+            return 0;
+        }
+
+        int passengers = 0;
+        for (int[] stop : stops) {
+            if (stop == null || stop.length != 2) {
+                throw new IllegalArgumentException("each stop must contain on/off counts");
+            }
+            passengers += stop[0] - stop[1];
+        }
+        return passengers;
     }
 
-    @Test
-    public void test1() {
-        ArrayList<int[]> list = new ArrayList<>();
-        list.add(new int[]{10, 0});
-        list.add(new int[]{3, 5});
-        list.add(new int[]{2, 5});
-        assertEquals(5, countPassengers(list));
-    }
 }

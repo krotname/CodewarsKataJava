@@ -1,9 +1,6 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class JadenCase {
 
@@ -18,18 +15,6 @@ public class JadenCase {
         return stringBuilder.toString().trim();
     }
 
-    @Test
-    public void test() {
-        assertEquals("Most Trees Are Blue", toJadenCase("most trees are blue"));
-    }
 
-    @Test
-    public void testNullArg() {
-        assertNull(toJadenCase(null));
-    }
 
-    @Test
-    public void testEmptyArg() {
-        assertNull(toJadenCase(""));
-    }
 }

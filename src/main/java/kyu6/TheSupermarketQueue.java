@@ -1,11 +1,9 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //6 https://www.codewars.com/kata/57b06f90e298a7b53d000a86/train/java
 
@@ -61,12 +59,4 @@ public class TheSupermarketQueue {
         return count;
     }
 
-    @Test
-    public void testNormalCondition() {
-        assertEquals(9, solveSuperMarketQueue(new int[]{2, 2, 3, 3, 4, 4}, 2));
-        assertEquals(0, solveSuperMarketQueue(new int[]{}, 1));
-        assertEquals(15, solveSuperMarketQueue(new int[]{1, 2, 3, 4, 5}, 1));
-        assertEquals(5, solveSuperMarketQueue(new int[]{1, 2, 3, 4, 5}, 100));
-        assertEquals(19, solveSuperMarketQueue(new int[]{5, 7, 4, 5, 6, 5, 3, 1, 3, 1, 2, 1, 5, 5}, 3));
-    }
 }

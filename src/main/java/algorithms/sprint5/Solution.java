@@ -1,3 +1,5 @@
+package algorithms.sprint5;
+
 // https://contest.yandex.ru/contest/24810/run-report/160624089/
 
 public class Solution {
@@ -84,41 +86,3 @@ public class Solution {
         return node;
     }
 }
-
-// <template>
-class Node {
-    private int value;
-    private Node left;
-    private Node right;
-
-    Node(Node left, Node right, int value) {
-        this.left = left;
-        this.right = right;
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public Node getRight() {
-        return right;
-    }
-
-    public void setRight(Node right) {
-        this.right = right;
-    }
-
-    public Node getLeft() {
-        return left;
-    }
-
-    public void setLeft(Node left) {
-        this.left = left;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-}
-// <template>

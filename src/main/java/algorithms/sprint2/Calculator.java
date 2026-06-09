@@ -1,3 +1,5 @@
+package algorithms.sprint2;
+
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
@@ -155,7 +157,7 @@ public class Calculator {
                 }
             }
 
-            return new String(tmp, 0, n);
+            return new String(tmp, 0, n, StandardCharsets.UTF_8);
         }
     }
 

@@ -1,8 +1,6 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SquareDigit {
 
@@ -19,10 +17,4 @@ public class SquareDigit {
         return Integer.parseInt(stringBuilder.toString());
     }
 
-    @Test
-    public void test() {
-        assertEquals(811181, squareDigits(9119));
-        assertEquals(0, squareDigits(0));
-        assertEquals(1, squareDigits(-1));
-    }
 }

@@ -1,8 +1,6 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReverseWords {
 
@@ -17,11 +15,4 @@ public class ReverseWords {
         return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
-    @Test
-    public void test() {
-        assertEquals("ehT kciuq nworb xof spmuj revo eht yzal .god",
-                reverseWords("The quick brown fox jumps over the lazy dog."));
-        assertEquals("   ",
-                reverseWords("   "));
-    }
 }

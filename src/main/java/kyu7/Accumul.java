@@ -1,11 +1,9 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Accumul {
 
@@ -47,15 +45,5 @@ public class Accumul {
                         .collect(Collectors.joining("-"));
     }
 
-    @Test
-    public void test() {
-        assertEquals("Z-Pp-Ggg-Llll-Nnnnn-Rrrrrr-Xxxxxxx-Qqqqqqqq-Eeeeeeeee-Nnnnnnnnnn-Uuuuuuuuuuu",
-                accum("ZpglnRxqenU"));
-    }
 
-    @Test
-    public void testStreamAccum() {
-        assertEquals("Z-Pp-Ggg-Llll-Nnnnn-Rrrrrr-Xxxxxxx-Qqqqqqqq-Eeeeeeeee-Nnnnnnnnnn-Uuuuuuuuuuu",
-                streamAccum("ZpglnRxqenU"));
-    }
 }

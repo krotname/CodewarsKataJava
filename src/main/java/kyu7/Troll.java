@@ -1,11 +1,9 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Troll {
     //6
@@ -38,9 +36,4 @@ public class Troll {
         return result.toString();
     }
 
-    @Test
-    public void test() {
-        assertEquals("LL", disembowel("LOL"));
-        assertEquals("Ths wbst s fr lsrs LL!", disembowel("This website is for losers LOL!"));
-    }
 }

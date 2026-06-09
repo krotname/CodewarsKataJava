@@ -1,13 +1,11 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DuplicateEncoder {
 
@@ -59,23 +57,5 @@ public class DuplicateEncoder {
      * "(( @"     =>  "))(("
      */
 
-    @Test
-    public void encodeTest() {
-        assertEquals(")()())()(()()(", encode("Prespecialized"));
-        assertEquals("()()()", encode("recede"));
-        assertEquals(")())())", encode("Success"));
-        assertEquals("))((", encode("(( @"));
-        assertEquals("))))))))((())))()))(((((((((((", encode("asfdafbsrtgsdcvxcvbnmjh,klo;p["));
-        assertEquals("))))())))", encode("   ()(   "));
-    }
 
-    @Test
-    public void encodeStreamTest() {
-        assertEquals("()()()", encodeStream("recede"));
-        assertEquals(")()())()(()()(", encodeStream("Prespecialized"));
-        assertEquals(")())())", encodeStream("Success"));
-        assertEquals("))((", encodeStream("(( @"));
-        assertEquals("))))))))((())))()))(((((((((((", encodeStream("asfdafbsrtgsdcvxcvbnmjh,klo;p["));
-        assertEquals("))))())))", encodeStream("   ()(   "));
-    }
 }

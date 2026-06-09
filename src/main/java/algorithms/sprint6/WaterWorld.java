@@ -1,3 +1,5 @@
+package algorithms.sprint6;
+
 /*
  * Принцип работы алгоритма:
  * Поле рассматривается как неориентированный граф: каждая клетка земли '#' — вершина,
@@ -128,7 +130,7 @@ public class WaterWorld {
 
             int val = 0;
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
             return val * sign;

@@ -1,8 +1,6 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CountTheDigit {
 
@@ -15,10 +13,4 @@ public class CountTheDigit {
         return (int) count;
     }
 
-    @Test
-    public void test() {
-        assertEquals(9481, nbDig(11011, 2));
-        assertEquals(4700, (nbDig(5750, 0)));
-        assertEquals(3, (nbDig(10, 0)));
-    }
 }

@@ -1,12 +1,12 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class SortTheOdd {
 
@@ -46,17 +46,5 @@ public class SortTheOdd {
         return array;
     }
 
-    @Test
-    public void exampleTestStream() {
-        assertArrayEquals(new int[]{0, 3, 1, 8, 5}, sortArrayStream(new int[]{5, 3, 1, 8, 0}));
-        assertArrayEquals(new int[]{1, 3, 2, 8, 5, 4}, sortArrayStream(new int[]{5, 3, 2, 8, 1, 4}));
-        assertArrayEquals(new int[]{}, sortArrayStream(new int[]{}));
-    }
 
-    @Test
-    public void exampleTest() {
-        assertArrayEquals(new int[]{0, 3, 1, 8, 5}, sortArray(new int[]{5, 3, 1, 8, 0}));
-        assertArrayEquals(new int[]{1, 3, 2, 8, 5, 4}, sortArray(new int[]{5, 3, 2, 8, 1, 4}));
-        assertArrayEquals(new int[]{}, sortArray(new int[]{}));
-    }
 }

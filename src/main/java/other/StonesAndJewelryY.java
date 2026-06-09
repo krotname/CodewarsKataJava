@@ -1,18 +1,13 @@
 package other;
 
-import java.io.*;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class StonesAndJewelryY {
-    public static void main(String[] args) throws Exception {
+    static int countJewels(String jewelry, String stones) {
+        if (jewelry == null || stones == null || jewelry.isEmpty() || stones.isEmpty()) {
+            return 0;
+        }
 
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-
-        String jewelry = r.readLine();
-        String stones = r.readLine();
-
-        if (Objects.isNull(jewelry) || Objects.isNull(stones)) return;
         var setJewelry = jewelry
                 .chars()
                 .mapToObj(c -> (char) c)
@@ -25,6 +20,6 @@ public class StonesAndJewelryY {
                 count++;
             }
         }
-        System.out.println(count);
+        return count;
     }
 }

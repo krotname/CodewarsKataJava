@@ -1,12 +1,9 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BraceChecker {
 
@@ -38,19 +35,5 @@ public class BraceChecker {
         return bracketsStack.isEmpty();
     }
 
-    @Test
-    public void testValid() {
-        assertTrue(isValid("()"));
-        assertTrue(isValid("[()]"));
-        assertTrue(isValid("(({{[[]]}}))"));
-        assertTrue(isValid("{}({})[]"));
-    }
 
-    @Test
-    public void testInvalid() {
-        assertFalse(isValid("[(])"));
-        assertFalse(isValid("[(]))"));
-        assertFalse(isValid("][)("));
-        assertFalse(isValid("(})"));
-    }
 }

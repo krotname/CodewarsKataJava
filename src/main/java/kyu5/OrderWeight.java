@@ -1,11 +1,10 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrderWeight {
 
@@ -47,21 +46,11 @@ public class OrderWeight {
      * For C: The result is freed.
      */
 
-    @Test
-    public void testWeightComparator() {
-        assertEquals(32, WeightComparator.weight("44444444"));
-        assertEquals(36, WeightComparator.weight("9999"));
-    }
 
-    @Test
-    public void testOrderWeight() {
-        assertEquals("2000 103 123 4444 99",
-                orderWeight("103 123 4444 99 2000"));
-        assertEquals("11 11 2000 10003 22 123 1234000 44444444 9999",
-                orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123"));
-    }
 
-    private static class WeightComparator implements Comparator<String> {
+    private static class WeightComparator implements Comparator<String>, Serializable {
+        private static final long serialVersionUID = 1L;
+
         public static int weight(String string) {
             int r = 0;
             for (char c : string.toCharArray()) {

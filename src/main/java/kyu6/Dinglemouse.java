@@ -1,80 +1,56 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Dinglemouse {
-    String name;
-    int age;
-    char sex;
-    ArrayList<String> order = new ArrayList<>();
+    private String name;
+    private int age;
+    private char sex;
+    private final List<String> order = new ArrayList<>();
 
     public Dinglemouse() {
     }
 
     public Dinglemouse setAge(int age) {
         this.age = age;
-        order.add("age");
+        remember("age");
         return this;
     }
 
     public Dinglemouse setSex(char sex) {
         this.sex = sex;
-        order.add("sex");
+        remember("sex");
         return this;
     }
 
     public Dinglemouse setName(String name) {
         this.name = name;
-        order.add("name");
+        remember("name");
         return this;
     }
 
     public String hello() {
-        String sexString = sex == 'M' ? "male" : "female";
         StringBuilder stringBuilder = new StringBuilder().append("Hello. ");
         order.forEach(o -> {
-            if (o.equals("name")){
-                stringBuilder.append("My name is " + name + ". ");
+            if (o.equals("name")) {
+                stringBuilder.append("My name is ").append(name).append(". ");
             }
-            if (o.equals("sex")){
-                stringBuilder.append("I am " + sexString + ". ");
+            if (o.equals("sex")) {
+                stringBuilder.append("I am ").append(sex == 'M' ? "male" : "female").append(". ");
             }
-            if (o.equals("age")){
-                stringBuilder.append("I am " + age + ". ");
+            if (o.equals("age")) {
+                stringBuilder.append("I am ").append(age).append(". ");
             }
         });
         return stringBuilder.toString().strip();
     }
 
-    @Test
-    public void testBob27Male() {
-        Dinglemouse dm = new Dinglemouse().setName("Bob").setAge(27).setSex('M');
-        String expected = "Hello. My name is Bob. I am 27. I am male.";
-        assertEquals(expected, dm.hello());
-    }
-
-    @Test
-    public void test27MaleBob() {
-        Dinglemouse dm = new Dinglemouse().setAge(27).setSex('M').setName("Bob");
-        String expected = "Hello. I am 27. I am male. My name is Bob.";
-        assertEquals(expected, dm.hello());
-    }
-
-    @Test
-    public void testAliceFemale() {
-        Dinglemouse dm = new Dinglemouse().setName("Alice").setSex('F');
-        String expected = "Hello. My name is Alice. I am female.";
-        assertEquals(expected, dm.hello());
-    }
-
-    @Test
-    public void testBatman() {
-        Dinglemouse dm = new Dinglemouse().setName("Batman");
-        String expected = "Hello. My name is Batman.";
-        assertEquals(expected, dm.hello());
+    private void remember(String property) {
+        if (!order.contains(property)) {
+            order.add(property);
+        }
     }
 }

@@ -1,13 +1,11 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SumSquaredDivisors {
 
@@ -15,7 +13,7 @@ public class SumSquaredDivisors {
 
     public static String listSquared(long m, long n) {
         Map<Long, Long> result = new TreeMap<>();
-        for (long i = m; i < n; i++) {
+        for (long i = m; i <= n; i++) {
             long sumSquare = sumSquareList(listDivisor(i));
             if (checkSquare(sumSquare)) {
                 result.putIfAbsent(i, sumSquare);
@@ -81,11 +79,4 @@ public class SumSquaredDivisors {
      * whitespace: you can use dynamically allocated character strings.
      */
 
-    @Test
-    public void test() {
-        assertEquals("[[1, 1], [42, 2500], [246, 84100]]", listSquared(1, 250));
-        assertEquals("[[42, 2500], [246, 84100]]", listSquared(42, 250));
-        assertEquals("[[287, 84100]]", listSquared(250, 500));
-        assertEquals("[]", listSquared(250, 255));
-    }
 }

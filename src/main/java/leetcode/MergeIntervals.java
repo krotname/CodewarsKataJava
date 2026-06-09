@@ -1,79 +1,50 @@
 package leetcode;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.TreeSet;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MergeIntervals {
+public class MergeIntervals {
     //Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return
     // an array of the non-overlapping intervals that cover all the intervals in the input.
     // https://leetcode.com/problems/merge-intervals/
     public int[][] merge(int[][] intervals) {
-        if (Objects.isNull(intervals) || Objects.isNull(intervals[0])) throw new IllegalArgumentException();
+        if (intervals == null) {
+            throw new IllegalArgumentException("Intervals must not be null");
+        }
+        if (intervals.length == 0) {
+            return new int[0][0];
+        }
 
-        var maxInt = intervals[intervals.length - 1][1];
-        var integersSet = new TreeSet<Integer>();
-        var resultList = new ArrayList<int[]>();
-        var currentInterval = 0;
+        int[][] sortedIntervals = Arrays.stream(intervals)
+                .map(MergeIntervals::copyInterval)
+                .sorted(Comparator.comparingInt(interval -> interval[0]))
+                .toArray(int[][]::new);
 
-        for (int[] interval : intervals) {
-            for (int j = interval[0]; j <= interval[1]; j++) {
-                integersSet.add(j);
+        List<int[]> mergedIntervals = new ArrayList<>();
+        int[] current = sortedIntervals[0];
+
+        for (int i = 1; i < sortedIntervals.length; i++) {
+            int[] next = sortedIntervals[i];
+            if (next[0] <= current[1]) {
+                current[1] = Math.max(current[1], next[1]);
+            } else {
+                mergedIntervals.add(current);
+                current = next;
             }
         }
+        mergedIntervals.add(current);
 
-        for (int i = 0; i <= maxInt; i++) {
-            if (integersSet.contains(i)) {
-                currentInterval++;
-            } else if (currentInterval != 0) {
-                resultList.add(new int[]{i - currentInterval, i - 1});
-                currentInterval = 0;
-            }
+        return mergedIntervals.toArray(new int[mergedIntervals.size()][]);
+    }
+
+    private static int[] copyInterval(int[] interval) {
+        if (interval == null || interval.length < 2) {
+            throw new IllegalArgumentException("Each interval must contain start and end values");
         }
-        if (currentInterval != 0) {
-            resultList.add(new int[]{maxInt - currentInterval + 1, maxInt});
-        }
-
-        return getResult(resultList);
-    }
-
-    private static int[][] getResult(ArrayList<int[]> resultList) {
-        int[][] result = new int[resultList.size()][2];
-        for (int i = 0; i < resultList.size(); i++) {
-            result[i] = resultList.get(i);
-        }
-        return result;
-    }
-
-    @Test
-    public void test1() {
-        int[][] input = {{2, 4}, {3, 6}, {8, 10}, {15, 18}};
-        int[][] output = {{2, 6}, {8, 10}, {15, 18}};
-        assertArrayEquals(output, merge(input));
-    }
-
-    @Test
-    public void test2() {
-        int[][] input = {{1, 18}};
-        int[][] output = {{1, 18}};
-        assertArrayEquals(output, merge(input));
-    }
-
-    @Test
-    public void test3() {
-        int[][] input = null;
-        assertThrows(IllegalArgumentException.class, () -> merge(input));
-    }
-
-    @Test
-    public void test4() {
-        int[][] input = {{1, 10}, {10, 18}};
-        int[][] output = {{1, 18}};
-        assertArrayEquals(output, merge(input));
+        return new int[]{interval[0], interval[1]};
     }
 }

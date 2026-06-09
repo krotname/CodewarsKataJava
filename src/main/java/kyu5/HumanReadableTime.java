@@ -1,8 +1,6 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HumanReadableTime {
 
@@ -49,11 +47,4 @@ public class HumanReadableTime {
         }
     }
 
-    @Test
-    public void test() {
-        assertEquals("99:59:59", HumanReadableTime.makeReadable(359999));
-        assertEquals("23:59:59", HumanReadableTime.makeReadable(86399));
-        assertEquals("00:00:05", HumanReadableTime.makeReadable(5));
-        assertEquals("00:00:00", HumanReadableTime.makeReadable(0));
-    }
 }

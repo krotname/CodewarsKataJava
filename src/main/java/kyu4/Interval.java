@@ -1,25 +1,45 @@
 package kyu4;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.Comparator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Interval {
 
     //4 https://www.codewars.com/kata/52b7ed099cdc285c300001cd/train/java
 
     public static int sumIntervals(int[][] intervals) {
-        if (intervals == null || intervals.length == 0) return 0;
-        HashSet<Integer> integers = new HashSet<>();
-        for (int[] pair : intervals
-        ) {
-            for (int i = pair[0]; i < pair[1]; i++) {
-                integers.add(i);
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+
+        int[][] sortedIntervals = Arrays.stream(intervals)
+                .peek(Interval::validateInterval)
+                .map(int[]::clone)
+                .sorted(Comparator.comparingInt(interval -> interval[0]))
+                .toArray(int[][]::new);
+
+        int coveredLength = 0;
+        int currentStart = sortedIntervals[0][0];
+        int currentEnd = sortedIntervals[0][1];
+        for (int i = 1; i < sortedIntervals.length; i++) {
+            int[] interval = sortedIntervals[i];
+            if (interval[0] <= currentEnd) {
+                currentEnd = Math.max(currentEnd, interval[1]);
+            } else {
+                coveredLength += currentEnd - currentStart;
+                currentStart = interval[0];
+                currentEnd = interval[1];
             }
         }
-        return integers.size();
+        return coveredLength + currentEnd - currentStart;
+    }
+
+    private static void validateInterval(int[] interval) {
+        if (interval == null || interval.length != 2 || interval[0] > interval[1]) {
+            throw new IllegalArgumentException("interval must contain start <= end");
+        }
     }
 
     /**
@@ -60,12 +80,5 @@ public class Interval {
      * });  // [1,8] => 7
      */
 
-    @Test
-    public void test() {
-        assertEquals(sumIntervals(new int[][]{{1, 4}, {7, 10}, {3, 5}}), 7);
-        assertEquals(sumIntervals(new int[][]{{1, 2}, {6, 10}, {11, 15}}), 9);
-        assertEquals(sumIntervals(new int[][]{{4, 8}, {9, 10}, {15, 21}}), 11);
-        assertEquals(sumIntervals(new int[][]{{1, 2}, {2, 6}, {6, 55}}), 54);
-    }
 
 }

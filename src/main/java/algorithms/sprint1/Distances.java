@@ -1,4 +1,13 @@
-import java.io.*;
+package algorithms.sprint1;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 
 // https://contest.yandex.ru/contest/22450/run-report/157289807/
@@ -60,7 +69,7 @@ public class Distances {
 
             int val = 0;
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
             return val * sign;
@@ -110,9 +119,8 @@ public class Distances {
     // -------------------- INPUT / OUTPUT --------------------
     static void run() {
 
-        try (InputStream input = new BufferedInputStream(new FileInputStream("input.txt")); OutputStream output = new BufferedOutputStream(new FileOutputStream("output.txt"))) {
-
-
+        try (InputStream input = new BufferedInputStream(new FileInputStream("input.txt"));
+             OutputStream output = new BufferedOutputStream(new FileOutputStream("output.txt"))) {
             FastIn in = new FastIn(input);
             FastOut out = new FastOut(output);
 

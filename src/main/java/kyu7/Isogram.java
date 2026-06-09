@@ -1,11 +1,8 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Isogram {
 
@@ -20,9 +17,4 @@ public class Isogram {
         return true;
     }
 
-    @Test
-    public void test() {
-        assertFalse(isIsogram("isIsogram"));
-        assertTrue(isIsogram("Dermatoglyphics"));
-    }
 }

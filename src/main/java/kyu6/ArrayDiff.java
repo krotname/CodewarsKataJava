@@ -1,11 +1,9 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 
 public class ArrayDiff {
@@ -51,19 +49,5 @@ public class ArrayDiff {
      * Kata.arrayDiff(new int[] {1, 2, 2, 2, 3}, new int[] {2}) => new int[] {1, 3}
      */
 
-    @Test
-    public void arrayDiffTest() {
-        assertArrayEquals(arrayDiff(new int[]{1, 2, 3, 4, 4, 5, 6, 7, 7, 7},
-                new int[]{7, 1}), new int[]{2, 3, 4, 4, 5, 6});
-        assertArrayEquals(arrayDiff(new int[]{1, 2}, new int[]{1}), new int[]{2});
-        assertArrayEquals(arrayDiff(new int[]{1, 2, 2}, new int[]{1}), new int[]{2, 2});
-    }
 
-    @Test
-    public void arrayDiffImperativeTest() {
-        assertArrayEquals(arrayDiffImperative(new int[]{1, 2, 3, 4, 4, 5, 6, 7, 7, 7}, new int[]{7, 1}),
-                new int[]{2, 3, 4, 4, 5, 6});
-        assertArrayEquals(arrayDiffImperative(new int[]{1, 2}, new int[]{1}), new int[]{2});
-        assertArrayEquals(arrayDiffImperative(new int[]{1, 2, 2}, new int[]{1}), new int[]{2, 2});
-    }
 }

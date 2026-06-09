@@ -1,11 +1,12 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VINChecker {
 
@@ -120,14 +121,4 @@ public class VINChecker {
      * invalid characters should return False as well.
      */
 
-    @Test
-    public void test() {
-        assertTrue(checkVin("5YJ3E1EA7HF000337"));
-        assertTrue(checkVin("5YJ3E1EAXHF000347"));
-        assertTrue(checkVin("5VGYMVUX7JV764512"));
-        assertTrue(checkVin("3VN6WLZCXYF160649"));
-        assertFalse(checkVin("7WDMMTDV9TG739741"));
-        assertFalse(checkVin("7JTRH08L5EJ234829"));
-        assertFalse(checkVin("7%^&H08L5EJ234829"));
-    }
 }

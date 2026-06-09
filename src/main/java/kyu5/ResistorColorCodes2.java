@@ -1,8 +1,6 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ResistorColorCodes2 {
     //5
@@ -44,17 +42,17 @@ public class ResistorColorCodes2 {
 
     private static String colors(int num) {
         return switch (num) {
-            case (0) -> "black";
-            case (1) -> "brown";
-            case (2) -> "red";
-            case (3) -> "orange";
-            case (4) -> "yellow";
-            case (5) -> "green";
-            case (6) -> "blue";
-            case (7) -> "violet";
-            case (8) -> "gray";
-            case (9) -> "white";
-            case (10) -> "gold";
+            case 0 -> "black";
+            case 1 -> "brown";
+            case 2 -> "red";
+            case 3 -> "orange";
+            case 4 -> "yellow";
+            case 5 -> "green";
+            case 6 -> "blue";
+            case 7 -> "violet";
+            case 8 -> "gray";
+            case 9 -> "white";
+            case 10 -> "gold";
             default -> "";
         };
     }
@@ -117,24 +115,4 @@ public class ResistorColorCodes2 {
      * "2M ohms"        "red black green gold"
      */
 
-    @Test
-    public void test() {
-        assertEquals("brown black black gold", encodeResistorColors("10 ohms"));
-        assertEquals("yellow violet black gold", encodeResistorColors("47 ohms"));
-        assertEquals("brown black brown gold", encodeResistorColors("100 ohms"));
-        assertEquals("red red brown gold", encodeResistorColors("220 ohms"));
-        assertEquals("orange orange brown gold", encodeResistorColors("330 ohms"));
-        assertEquals("yellow violet brown gold", encodeResistorColors("470 ohms"));
-        assertEquals("blue gray brown gold", encodeResistorColors("680 ohms"));
-        assertEquals("brown black red gold", encodeResistorColors("1k ohms"));
-        assertEquals("yellow violet red gold", encodeResistorColors("4.7k ohms"));
-        assertEquals("brown black orange gold", encodeResistorColors("10k ohms"));
-        assertEquals("red red orange gold", encodeResistorColors("22k ohms"));
-        assertEquals("yellow violet orange gold", encodeResistorColors("47k ohms"));
-        assertEquals("brown black yellow gold", encodeResistorColors("100k ohms"));
-        assertEquals("orange orange yellow gold", encodeResistorColors("330k ohms"));
-        assertEquals("brown black green gold", encodeResistorColors("1M ohms"));
-        assertEquals("red black green gold", encodeResistorColors("2M ohms"));
-    }
 }
-

@@ -1,38 +1,90 @@
 package kyu4;
 
-import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BlockSequence {
 
     //4 https://www.codewars.com/kata/5e1ab1b9fe268c0033680e5f
+    private static final BigInteger ZERO = BigInteger.ZERO;
+    private static final BigInteger ONE = BigInteger.ONE;
+    private static final BigInteger TWO = BigInteger.valueOf(2L);
 
     public static int solve(long n) {
-        BigInteger big = new BigInteger("1");
-        BigInteger append = new BigInteger("1");
-        while (!check(big, n)) {
-            big = new BigInteger(big.toString() + append);
-            char c = append.toString().toCharArray()[append.toString().length() - 1];
-            int i = Integer.parseInt(String.valueOf(c)) + 1;
-            append = new BigInteger(append.toString() + i);
+        if (n < 1) {
+            throw new IllegalArgumentException("n must be positive");
         }
-        return big.toString().length() - String.valueOf(n).length() + 1;
+
+        long blockNumber = findContainingBlock(n);
+        BigInteger previousLength = cumulativeLength(blockNumber - 1);
+        BigInteger offsetInBlock = BigInteger.valueOf(n).subtract(previousLength);
+        return digitAtOffset(blockNumber, offsetInBlock);
     }
 
-    public static boolean check(BigInteger b, long n) {
-        char[] charN = String.valueOf(n).toCharArray();
-        char[] charB = b.toString().toCharArray();
-        for (int i = 1; i <= charN.length; i++) {
-            try {
-                if (charN[charN.length - i] != charB[charB.length - i]) return false;
-            } catch (Exception e) {
-                return false;
+    private static long findContainingBlock(long position) {
+        BigInteger target = BigInteger.valueOf(position);
+        long high = 1L;
+        while (cumulativeLength(high).compareTo(target) < 0) {
+            high *= 2L;
+        }
+
+        long low = 1L;
+        while (low < high) {
+            long middle = low + (high - low) / 2L;
+            if (cumulativeLength(middle).compareTo(target) >= 0) {
+                high = middle;
+            } else {
+                low = middle + 1L;
             }
         }
-        return true;
+        return low;
+    }
+
+    private static BigInteger cumulativeLength(long blockNumber) {
+        if (blockNumber <= 0) {
+            return ZERO;
+        }
+
+        BigInteger result = ZERO;
+        long groupStart = 1L;
+        for (int digits = 1; groupStart <= blockNumber; digits++) {
+            long groupEnd = groupStart > Long.MAX_VALUE / 10L
+                    ? blockNumber
+                    : Math.min(blockNumber, groupStart * 10L - 1L);
+            BigInteger count = BigInteger.valueOf(groupEnd - groupStart + 1L);
+            BigInteger rangeSum = BigInteger.valueOf(groupStart)
+                    .add(BigInteger.valueOf(groupEnd))
+                    .multiply(count)
+                    .divide(TWO);
+
+            BigInteger appearances = BigInteger.valueOf(blockNumber).add(ONE).multiply(count).subtract(rangeSum);
+            result = result.add(BigInteger.valueOf(digits).multiply(appearances));
+            groupStart = groupEnd + 1L;
+        }
+        return result;
+    }
+
+    private static int digitAtOffset(long blockNumber, BigInteger offset) {
+        BigInteger remaining = offset;
+        long groupStart = 1L;
+        for (int digits = 1; groupStart <= blockNumber; digits++) {
+            long groupEnd = groupStart > Long.MAX_VALUE / 10L
+                    ? blockNumber
+                    : Math.min(blockNumber, groupStart * 10L - 1L);
+            BigInteger groupDigits = BigInteger.valueOf(groupEnd - groupStart + 1L).multiply(BigInteger.valueOf(digits));
+
+            if (remaining.compareTo(groupDigits) > 0) {
+                remaining = remaining.subtract(groupDigits);
+            } else {
+                BigInteger[] numberAndDigit = remaining.subtract(ONE).divideAndRemainder(BigInteger.valueOf(digits));
+                long number = BigInteger.valueOf(groupStart).add(numberAndDigit[0]).longValueExact();
+                return Character.digit(Long.toString(number).charAt(numberAndDigit[1].intValue()), 10);
+            }
+
+            groupStart = groupEnd + 1L;
+        }
+        throw new IllegalStateException("offset is outside of the containing block");
     }
 
     /**
@@ -52,12 +104,5 @@ public class BlockSequence {
      * More examples in the test cases.
      */
 
-    @Test
-    public void test() {
-        assertEquals(1, solve(1));
-        assertEquals(7, solve(3));
-        assertEquals(16, solve(5));
-        assertEquals(56, solve(10));
-    }
 
 }

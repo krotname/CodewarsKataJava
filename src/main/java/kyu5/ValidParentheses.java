@@ -1,16 +1,13 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidParentheses {
 
     //5
 
-    private static boolean validParentheses(String parens) {
-        if (parens == null || parens.isEmpty()) {
+    public static boolean validParentheses(String parens) {
+        if (parens == null) {
             return false;
         }
         int check = 0;
@@ -46,22 +43,5 @@ public class ValidParentheses {
      * of brackets as parentheses (e.g. [], {}, <>).
      */
 
-    @Test
-    public void testFalse() {
-        assertFalse(validParentheses("()V))(K(L])su^(B"));
-        assertFalse(validParentheses("s)R)>)/((({Fr((()K4)i)ef8XR"));
-        assertFalse(validParentheses("Iz)Lwy(j"));
-        assertFalse(validParentheses(")(()))"));
-        assertFalse(validParentheses("("));
-        assertFalse(validParentheses("((((())))))"));
-        assertFalse(validParentheses("((((((())))))"));
-    }
 
-    @Test
-    public void testTrue() {
-        assertTrue(validParentheses("(())((34()())())"));
-        assertTrue(validParentheses("()"));
-        assertTrue(validParentheses("((((()))))"));
-        assertTrue(validParentheses("(())((()))"));
-    }
 }

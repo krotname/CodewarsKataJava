@@ -1,3 +1,5 @@
+package algorithms.sprint4;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -155,7 +157,7 @@ public class Map {
 
             int num = 0;
             while (c > ' ') {
-                num = num * 10 + (c - '0');
+                num = num * 10 + c - '0';
                 c = read();
             }
 

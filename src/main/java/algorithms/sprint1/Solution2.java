@@ -3,27 +3,21 @@ package algorithms.sprint1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.StringTokenizer;
-
-// <template>
-class Node<V> {
-    public V value;
-    public Node<V> next;
-
-    public Node(V value, Node<V> next) {
-        this.value = value;
-        this.next = next;
-    }
-}
-// <template>
 
 public class Solution2 {
     public static void solution(Node<String> head) {
-        // Your code
-        // ヽ(´▽`)/
+        StringBuilder output = new StringBuilder();
+        Node<String> current = head;
+        while (current != null) {
+            output.append(current.value).append('\n');
+            current = current.next;
+        }
+        System.out.print(output);
     }
 
-    private static void test() {
+    static void test() {
         Node<String> node3 = new Node<>("node3", null);
         Node<String> node2 = new Node<>("node2", node3);
         Node<String> node1 = new Node<>("node1", node2);
@@ -39,17 +33,16 @@ public class Solution2 {
     }
 
     public static void main(String[] args) throws IOException {
-        StringBuilder output_buffer = new StringBuilder();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int num_lines = Integer.parseInt(reader.readLine());
-        for (int i = 0; i < num_lines; ++i) {
+        StringBuilder outputBuffer = new StringBuilder();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+        int lineCount = Integer.parseInt(reader.readLine());
+        for (int i = 0; i < lineCount; ++i) {
             StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
-            int value_1 = Integer.parseInt(tokenizer.nextToken());
-            int value_2 = Integer.parseInt(tokenizer.nextToken());
-            int result = value_1 + value_2;
-            output_buffer.append(result).append("\n");
+            int firstValue = Integer.parseInt(tokenizer.nextToken());
+            int secondValue = Integer.parseInt(tokenizer.nextToken());
+            int result = firstValue + secondValue;
+            outputBuffer.append(result).append("\n");
         }
-        System.out.println(output_buffer.toString());
+        System.out.println(outputBuffer);
     }
-    
 }

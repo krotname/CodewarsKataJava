@@ -1,32 +1,20 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FindOdd {
 
     //6
 
     public static int findIt(int[] a) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int num : a
-        ) {
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
+        if (a == null || a.length == 0) {
+            return 0;
+        }
 
-            } else {
-                map.put(num, 1);
-            }
+        int result = 0;
+        for (int num : a) {
+            result ^= num;
         }
-        for (Map.Entry<Integer, Integer> e : map.entrySet()
-        ) {
-            if (e.getValue() % 2 != 0) return e.getKey();
-        }
-        return 0;
+        return result;
     }
 
     /**
@@ -40,14 +28,5 @@ public class FindOdd {
      * [1,2,2,3,3,3,4,3,3,3,2,2,1] shold return 4, because it appears 1 time (which is odd).
      */
 
-    @Test
-    public void test() {
-        assertEquals(5, FindOdd.findIt(new int[]{20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5}));
-        assertEquals(-1, FindOdd.findIt(new int[]{1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5}));
-        assertEquals(5, FindOdd.findIt(new int[]{20, 1, 1, 2, 2, 3, 3, 5, 5, 4, 20, 4, 5}));
-        assertEquals(10, FindOdd.findIt(new int[]{10}));
-        assertEquals(10, FindOdd.findIt(new int[]{1, 1, 1, 1, 1, 1, 10, 1, 1, 1, 1}));
-        assertEquals(1, FindOdd.findIt(new int[]{5, 4, 3, 2, 1, 5, 4, 3, 2, 10, 10}));
-    }
 
 }

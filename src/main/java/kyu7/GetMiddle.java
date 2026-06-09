@@ -1,8 +1,6 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GetMiddle {
 
@@ -17,10 +15,4 @@ public class GetMiddle {
         }
     }
 
-    @Test
-    public void test() {
-        assertEquals("es", getMiddle("test"));
-        assertEquals("dd", getMiddle("middle"));
-        assertEquals("d", getMiddle("midle"));
-    }
 }

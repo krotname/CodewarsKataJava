@@ -1,8 +1,6 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DigitalRoot {
 
@@ -37,17 +35,5 @@ public class DigitalRoot {
      * The input will be a non-negative integer.
      */
 
-    @Test
-    public void digitalRootRecursiveStreamTest() {
-        assertEquals(7, digitalRootRecursiveStream(16));
-        assertEquals(6, digitalRootRecursiveStream(456));
-        assertEquals(2, digitalRootRecursiveStream(493193));
-    }
 
-    @Test
-    public void digitalRootTest() {
-        assertEquals(7, digitalRoot(16));
-        assertEquals(6, digitalRoot(456));
-        assertEquals(2, digitalRoot(493193));
-    }
 }

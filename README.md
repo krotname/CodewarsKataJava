@@ -1,24 +1,161 @@
-# Codewars
+# Codewars Solutions / Решения с Codewars
 
-[![Java CI with Maven](https://github.com/krotname/CodewarsKataJava/actions/workflows/maven.yml/badge.svg)](https://github.com/krotname/CodewarsKataJava/actions/workflows/maven.yml)
-[![CodeQL](https://github.com/krotname/CodewarsKataJava/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/krotname/CodewarsKataJava/actions/workflows/codeql-analysis.yml)
+[![CI](https://github.com/krotname/Codewars/actions/workflows/maven.yml/badge.svg)](https://github.com/krotname/Codewars/actions/workflows/maven.yml)
+[![CodeQL](https://github.com/krotname/Codewars/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/krotname/Codewars/actions/workflows/codeql-analysis.yml)
+[![Coverage](https://codecov.io/gh/krotname/Codewars/branch/main/graph/badge.svg)](https://codecov.io/gh/krotname/Codewars)
+[![Quality Gate](https://github.com/krotname/Codewars/actions/workflows/maven.yml/badge.svg?label=quality)](https://github.com/krotname/Codewars/actions/workflows/maven.yml)
+[![Quality Gates](https://github.com/krotname/Codewars/actions/workflows/quality.yml/badge.svg)](https://github.com/krotname/Codewars/actions/workflows/quality.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-0f8a16)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-17%2B-007396.svg)](https://adoptium.net/)
+[![JUnit](https://img.shields.io/badge/JUnit-6-25A162.svg)](https://junit.org/)
+[![Maven](https://img.shields.io/badge/Maven-3.9%2B-C71A36.svg)](https://maven.apache.org/)
 
-Набор решений алгоритмических задач разного уровня сложности с https://www.codewars.com/kata/ на Java по методу TDD.
+This repository is a portfolio-grade Java kata workspace focused on:
+- deterministic algorithms with reproducible tests,
+- explicit quality workflows (CI, CodeQL, coverage, static checks),
+- readable production code and practical refactoring notes,
+- bilingual project documentation.
 
-Профиль: https://www.codewars.com/users/krotname
+English | [Русский](#русский)
 
-## Запуск
+## English
 
-В IntelliJ IDEA можно нажать правой кнопкой на `src/main/java` и выбрать `Run 'All Tests'`.
+### Why this repository exists
 
-Через Maven:
+- It demonstrates practical coding and test engineering from **problem solving** to **delivery quality**.
+- All solutions are intentionally organized by difficulty/source (kyu/LeetCode/interview/transactions/other).
+- Static checks and tests are visible and runnable in one place.
+
+### Repository map
+
+- `src/main/java` — production solutions and domain classes
+- `src/test/java` — tests and quality suites
+  - `quality.SmokeSuite` (unit/smoke partition)
+  - `quality.IntegrationSuite` (transactions scenario tests)
+  - `quality.PropertySuite` (property-based tests, currently curated)
+- `.github` — CI workflows, dependabot and repo templates
+- `ARCHITECTURE.md` — architectural and reviewability notes.
+- `CHANGELOG.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `TESTING.md` — project governance
+
+### Testing strategy
+
+- **Smoke / Unit baseline** — each kata has direct tests; grouped by `quality.SmokeSuite`.
+- **Integration** — transaction validation state and ordering, via `quality.IntegrationSuite`.
+- **Property-based** — jqwik property tests are grouped in `quality.PropertySuite`.
+- **UI tests** — not applicable (`N/A` for this repository, no UI layer).
+- **Static quality gates** — Checkstyle, PMD, SpotBugs run in Maven verify and fail the build on violations.
+- **Static artifact capture** — reports from Checkstyle/PMD/SpotBugs are attached to CI artifacts for reviewer inspection.
+- **Coverage gate** — JaCoCo fails `mvn verify` below 91% line, 85% branch and 92% instruction coverage.
+
+### CI and quality signals
+
+- GitHub Actions workflow: `.github/workflows/maven.yml`
+  - category jobs (`smoke`, `integration`, `property`) on JDK 21 via JUnit tags
+  - full `mvn verify` on JDK 17 and 21
+  - uploaded test and coverage artifacts
+- Quality workflow: `.github/workflows/quality.yml`
+  - runs static checks with `checkstyle`, `pmd`, and `spotbugs` without executing tests
+  - Checkstyle, PMD and SpotBugs are kept clean in the current quality baseline
+  - Checkstyle uses a project-specific baseline in `config/checkstyle/checkstyle.xml`
+  - Generated smoke wrappers have explicit suppressions in `config/checkstyle/suppressions.xml`
+  - SpotBugs is kept clean with documented compatibility exceptions in `config/spotbugs-exclude.xml`
+- Security workflow: `.github/workflows/codeql-analysis.yml`
+- Dependency automation: `.github/dependabot.yml`
+- Coverage tracked in JaCoCo + Codecov; the current local baseline is 455 tests with 91.4% line,
+  85.1% branch and 92.7% instruction coverage.
+
+### Portfolio checklist
+
+- Deterministic implementations with package-localized responsibilities.
+- Clear QA signals in CI (unit/integration/property + static checks).
+- Explicit bilingual documentation for contributors and users.
+- Reproducible Maven build commands.
+- Separate quality workflow for static tooling visibility.
+
+### Local run
 
 ```bash
-mvn test
+mvn -B verify
+mvn -B test
+mvn -B test -Dgroups='smoke'
+mvn -B test -Dgroups='integration'
+mvn -B test -Dgroups='property'
+mvn -B -DskipTests checkstyle:check pmd:check spotbugs:check
+mvn -B test -Dtest='quality.SmokeSuite'
+mvn -B test -Dtest='quality.IntegrationSuite'
+mvn -B test -Dtest='quality.PropertySuite'
 ```
 
-Для полной проверки CI используется:
+### What code reviewers can verify quickly
+
+- No hidden mutation of test inputs inside algorithmic methods.
+- Meaningful method-level comments in non-obvious logic.
+- Deterministic edge-case handling in boundary tests.
+- Governance artifacts for maintainability and process.
+
+### Local quality policy
+
+- Use ASCII-only patch style unless a file already contains another script.
+- Keep public method behavior deterministic.
+- Add/adjust tests for any changed branch behavior.
+- Keep complexity-local comments in algorithmic methods.
+
+### Architecture
+
+- [ARCHITECTURE.md](ARCHITECTURE.md)
+
+## Русский
+
+### Зачем нужен этот репозиторий
+
+- Показать не только решения задач, но и зрелый рабочий процесс: тестирование, CI, проверки качества, документацию.
+- Сохранить код понятным для ревью: читаемые структуры, воспроизводимые команды и прозрачные критерии качества.
+- Поддерживать русско- и англоязычную документацию.
+
+### Карта репозитория
+
+- `src/main/java` — решения/бизнес-логика
+- `src/test/java` — тесты и саппортивные suites
+  - `quality.SmokeSuite` (unit/smoke)
+  - `quality.IntegrationSuite` (интеграционные проверки транзакций)
+  - `quality.PropertySuite` (property-тесты на jqwik, сгруппировано)
+- `.github` — CI, dependabot, шаблоны
+- `ARCHITECTURE.md` — архитектурные заметки для ревью.
+- `CHANGELOG.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `TESTING.md`
+
+### Стратегия тестов
+
+- **Smoke / Unit**: базовая проверка API каждого решения.
+- **Интеграционные**: последовательности и состояние в `transactions`.
+- **Property-based (jqwik)**: инварианты в подходящих задачах.
+- **UI**: не применимо (`N/A`), в репозитории нет UI-слоя.
+- **Статический контроль**: Checkstyle, PMD, SpotBugs в `verify`; сборка падает при нарушениях.
+- **Coverage-gate**: JaCoCo ломает `mvn verify`, если покрытие ниже 91% строк, 85% ветвлений
+  или 92% инструкций.
+- **Отдельный quality-гейт**: workflow `.github/workflows/quality.yml` для чистых статических проверок без прогона тестов.
+- **Checkstyle / PMD / SpotBugs**: чистый текущий baseline.
+- **Checkstyle**: проектный набор правил в `config/checkstyle/checkstyle.xml` и явные suppressions для generated smoke-тестов.
+- **SpotBugs**: чистый отчёт с явными исключениями совместимости в `config/spotbugs-exclude.xml`.
+- **Текущий baseline**: 455 тестов; 91.4% line, 85.1% branch и 92.7% instruction coverage.
+
+### Как запускать
 
 ```bash
-mvn -B package --file pom.xml
+mvn -B verify
+mvn -B test
+mvn -B test -Dgroups='smoke'
+mvn -B test -Dgroups='integration'
+mvn -B test -Dgroups='property'
+mvn -B -DskipTests checkstyle:check pmd:check spotbugs:check
+mvn -B test -Dtest='quality.SmokeSuite'
+mvn -B test -Dtest='quality.IntegrationSuite'
+mvn -B test -Dtest='quality.PropertySuite'
 ```
+
+### Что отражает репозиторий как "публично привлекательный"
+
+- Есть CI с понятными этапами и артефактами (`surefire`, `jacoco`).
+- Есть требования и процесс (`CONTRIBUTING`, `SECURITY`, `CODE_OF_CONDUCT`).
+- Есть явная стратегия тестирования и локальные команды.
+- Есть заметки о покрытии и безопасности.
+- Есть архитектурная карта для быстрой оценки качества решений (`ARCHITECTURE.md`).

@@ -1,7 +1,10 @@
+package algorithms.sprint7;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /*
 Принцип работы алгоритма:
@@ -112,7 +115,7 @@ public class LevenshteinDistance {
                 c = read();
             }
 
-            return new String(tmp, 0, size);
+            return new String(tmp, 0, size, StandardCharsets.UTF_8);
         }
     }
 

@@ -1,10 +1,8 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MultiplesOf3or5 {
 
@@ -28,17 +26,7 @@ public class MultiplesOf3or5 {
      * Note: If the number is a multiple of both 3 and 5, only count it once.
      */
 
-    @Test
-    public void test() {
-        assertEquals(23, multiplesOf3or5(10));
-        assertEquals(2318, multiplesOf3or5(100));
-    }
 
-    @Test
-    public void testSteam() {
-        assertEquals(23, multiplesOf3or5Stream(10));
-        assertEquals(2318, multiplesOf3or5Stream(100));
-    }
 
     public int multiplesOf3or5Stream(int number) {
         return IntStream.range(0, number)

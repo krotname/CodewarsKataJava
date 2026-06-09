@@ -1,11 +1,9 @@
 package other;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 // Выводит в консоль все возможные перестановки из массива
 // Размещение без повторений (3,3)
@@ -41,18 +39,4 @@ public class Permutations {
         }
     }
 
-    @Test
-    public void test() {
-        int[] pa = new int[]{1, 2, 3};
-        permutations(pa, 0);
-
-        assertArrayEquals(List.of(
-                        new int[]{11, 22, 33},
-                        new int[]{11, 33, 22},
-                        new int[]{22, 11, 33},
-                        new int[]{22, 33, 11},
-                        new int[]{33, 22, 11},
-                        new int[]{33, 11, 22}).toArray(),
-                RESULT.toArray());
-    }
 }

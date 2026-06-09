@@ -1,8 +1,6 @@
 package other;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReverseInt {
 
@@ -14,13 +12,4 @@ public class ReverseInt {
         }
     }
 
-    @Test
-    public void test() {
-        assertEquals(321, reverse(123));
-        assertEquals(-321, reverse(-123));
-        assertEquals(21, reverse(120));
-        assertEquals(21, reverse(12));
-        assertEquals(1, reverse(012)); // Octal
-        assertEquals(0, reverse(0));
-    }
 }

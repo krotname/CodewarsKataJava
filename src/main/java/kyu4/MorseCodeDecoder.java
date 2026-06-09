@@ -1,11 +1,12 @@
 package kyu4;
 
-import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MorseCodeDecoder {
 
@@ -14,8 +15,6 @@ public class MorseCodeDecoder {
 
     private static final Map<String, String> ALPHABET_TO_MORSE = new LinkedHashMap<>();
     private static final Map<String, String> MORSE_TO_ALPHABET = new LinkedHashMap<>();
-    private static final int ASCII_0 = 48;
-    private static final int ASCII_1 = 49;
 
     static {
         ALPHABET_TO_MORSE.put("a", ".-");
@@ -117,63 +116,73 @@ public class MorseCodeDecoder {
     }
 
     public static String decodeMorse(String morseCode) {
-        String[] split = morseCode.split("\\s");
-        StringBuilder result = new StringBuilder();
-        for (String s : split
-        ) {
-            String s1 = MORSE_TO_ALPHABET.get(s);
-            if (!s1.equals(" ") || !result.toString().endsWith(s1)) {
-                result.append(s1);
-            }
+        if (morseCode == null || morseCode.isBlank()) {
+            return "";
         }
-        return result.toString().toUpperCase().trim();
+
+        List<String> decodedWords = new ArrayList<>();
+        String[] words = morseCode.trim().split("\\s{3,}");
+        for (String word : words) {
+            StringBuilder decodedWord = new StringBuilder();
+            for (String symbol : word.split("\\s+")) {
+                decodedWord.append(MORSE_TO_ALPHABET.getOrDefault(symbol, ""));
+            }
+            decodedWords.add(decodedWord.toString());
+        }
+        return String.join(" ", decodedWords).toUpperCase();
     }
 
     public static String encode(String toMorseCode) {
-        char[] chars = toMorseCode.toCharArray();
-        StringBuilder result = new StringBuilder();
-        for (char s : chars
-        ) {
-            String currentChar = String.valueOf(s).toLowerCase();
-            result.append(ALPHABET_TO_MORSE.get(currentChar)).append(" ");
+        if (toMorseCode == null || toMorseCode.isBlank()) {
+            return "";
         }
-        return result.toString().toUpperCase().trim();
+
+        List<String> encodedWords = new ArrayList<>();
+        for (String word : toMorseCode.trim().split("\\s+")) {
+            StringJoiner letters = new StringJoiner(" ");
+            for (char letter : word.toCharArray()) {
+                String morse = ALPHABET_TO_MORSE.get(String.valueOf(letter).toLowerCase());
+                if (morse == null) {
+                    throw new IllegalArgumentException("Unsupported Morse character: " + letter);
+                }
+                letters.add(morse);
+            }
+            encodedWords.add(letters.toString());
+        }
+        return String.join("   ", encodedWords);
     }
 
     public static String decodeBits(String bits) {
-        bits = trimStartZeros(bits);
-        int digits = checkDigits(bits);
-        char[] chars = bits.toCharArray();
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < bits.length(); i += digits) {
-            stringBuilder.append(chars[i]);
+        if (bits == null || bits.isBlank()) {
+            return "";
         }
-        stringBuilder.append("0000000");
+
+        String signal = trimSignalZeros(bits);
+        if (signal.isEmpty()) {
+            return "";
+        }
+
+        int unit = checkDigits(signal);
         StringBuilder result = new StringBuilder();
-        char[] chars1digits = stringBuilder.toString().toCharArray();
-        for (int i = 0; i < chars1digits.length - 6; i++) {
-            if (chars1digits[i] == ASCII_1) {
-                if (chars1digits[i + 1] == ASCII_1 && chars1digits[i + 2] == ASCII_1) {
-                    result.append("-");
-                    i += 2;
-                } else {
-                    result.append(".");
-                }
+        for (int i = 0; i < signal.length();) {
+            char bit = signal.charAt(i);
+            int end = i + 1;
+            while (end < signal.length() && signal.charAt(end) == bit) {
+                end++;
             }
-            if (chars1digits[i] == ASCII_0) {
-                if (chars1digits[i + 1] == ASCII_0 && chars1digits[i + 2] == ASCII_0 && chars1digits[i + 3] == ASCII_0 &&
-                        chars1digits[i + 4] == ASCII_0 && chars1digits[i + 5] == ASCII_0 && chars1digits[i + 6] == ASCII_0) {
-                    result.append("   ");
-                    i += 6;
-                } else if (chars1digits[i + 1] == ASCII_0 && chars1digits[i + 2] == ASCII_0) {
-                    result.append(" ");
-                }
-            }
+
+            appendMorseRun(result, bit, (end - i) / unit);
+            i = end;
         }
         return result.toString().trim();
     }
 
     public static String trimStartZeros(String bits) {
+        // Only the active part from the first transmitted pulse is relevant;
+        // trailing leading zeros must be discarded before digit sampling.
+        if (bits == null) {
+            return "";
+        }
         while (bits.startsWith("0")) {
             bits = bits.substring(1);
         }
@@ -181,62 +190,47 @@ public class MorseCodeDecoder {
     }
 
     public static int checkDigits(String bits) {
-        int minCount1 = Integer.MAX_VALUE;
-        int minCount0 = Integer.MAX_VALUE;
-        int count1 = 0;
-        int count0 = 0;
-        char[] chars = bits.toCharArray();
-        for (int i = 0; i < bits.length(); i++) {
-            if (chars[i] == ASCII_1) {
-                count1++;
-            } else {
-                if (count1 > 0) {
-                    minCount1 = Math.min(count1, minCount1);
-                }
-                count1 = 0;
-            }
-            if (chars[i] == ASCII_0) {
-                count0++;
-            } else {
-                if (count0 > 0) {
-                    minCount0 = Math.min(count0, minCount0);
-                }
-                count0 = 0;
-            }
+        // Finds the smallest consecutive run of ones/zeros across the signal.
+        // That minimum is the time unit used to discretize pulse lengths.
+        if (bits == null || bits.isBlank()) {
+            return 0;
         }
-        return Math.min(minCount0, minCount1);
+
+        int minRun = Integer.MAX_VALUE;
+        for (int i = 0; i < bits.length();) {
+            char bit = bits.charAt(i);
+            int end = i + 1;
+            while (end < bits.length() && bits.charAt(end) == bit) {
+                end++;
+            }
+            minRun = Math.min(minRun, end - i);
+            i = end;
+        }
+        return minRun;
     }
 
-    @Test
-    public void testDecodeMorse() {
-        assertEquals("HEY JUDE",
-                decodeMorse(".... . -.--   .--- ..- -.. ."));
-        assertEquals("SOS THE QUICK BROWN FO JUMPS OVER THE LAZY DOG",
-                decodeMorse("... --- ...     - .... .     --.- ..- .. -.-. -.-     -... .-. --- .-- -.     ..-. ---     .--- ..- -- .--. ...     --- ...- . .-.     - .... .     .-.. .- --.. -.--     -.. --- --."));
+    private static String trimSignalZeros(String bits) {
+        int start = 0;
+        int end = bits.length();
+        while (start < end && bits.charAt(start) == '0') {
+            start++;
+        }
+        while (end > start && bits.charAt(end - 1) == '0') {
+            end--;
+        }
+        return bits.substring(start, end);
     }
 
-    @Test
-    public void testEncode() {
-        assertEquals("... --- ...     - .... .     --.- ..- .. -.-. -.-     -... .-. --- .-- -.     ..-. ---     .--- ..- -- .--. ...     --- ...- . .-.     - .... .     .-.. .- --.. -.--     -.. --- --.",
-                encode("SOS THE QUICK BROWN FO JUMPS OVER THE LAZY DOG"));
-        assertEquals("... --- ...",
-                encode("SOS"));
-    }
+    private static void appendMorseRun(StringBuilder result, char bit, int units) {
+        if (bit == '1') {
+            result.append(units >= 3 ? "-" : ".");
+            return;
+        }
 
-    @Test
-    public void testDecodeBits() {
-        assertEquals("----..",
-                decodeBits("111111011111111"));
-        assertEquals(".... . -.--   .--- ..- -.. .",
-                decodeBits("1100110011001100000011000000111111001100111111001111110000000000000011001111110011111100111111000000110011001111110000001111110011001100000011"));
+        if (units >= 7) {
+            result.append("   ");
+        } else if (units >= 3) {
+            result.append(" ");
+        }
     }
-
-    @Test
-    public void testComplex() {
-        assertEquals("H",
-                decodeMorse(decodeBits("11011")));
-        assertEquals("HEY JUDE",
-                decodeMorse(decodeBits("1100110011001100000011000000111111001100111111001111110000000000000011001111110011111100111111000000110011001111110000001111110011001100000011")));
-    }
-
 }

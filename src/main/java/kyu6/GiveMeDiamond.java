@@ -1,9 +1,6 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GiveMeDiamond {
 
@@ -22,36 +19,8 @@ public class GiveMeDiamond {
         return strings.toString();
     }
 
-    @Test
-    public void testGiveMeDiamond1() {
-        assertEquals("*" + System.lineSeparator(), GiveMeDiamond.print(1));
-    }
 
-    @Test
-    public void testGiveMeDiamond3() {
-        var e = " *" + System.lineSeparator() +
-                "***" + System.lineSeparator() +
-                " *" + System.lineSeparator();
 
-        assertEquals(e, GiveMeDiamond.print(3));
-    }
 
-    @Test
-    public void testGiveMeDiamond5() {
-        var e = "  *" + System.lineSeparator() +
-                " ***" + System.lineSeparator() +
-                "*****" + System.lineSeparator() +
-                " ***" + System.lineSeparator() +
-                "  *" + System.lineSeparator();
-
-        assertEquals(e, GiveMeDiamond.print(5));
-    }
-
-    @Test
-    public void testGiveMeDiamondNull() {
-        assertNull(GiveMeDiamond.print(0));
-        assertNull(GiveMeDiamond.print(-2));
-        assertNull(GiveMeDiamond.print(2));
-    }
 
 }

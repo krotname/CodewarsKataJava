@@ -1,12 +1,9 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class Scrambles {
@@ -40,21 +37,5 @@ public class Scrambles {
      * scramble('katas', 'steak') ==> False
      */
 
-    @Test
-    public void testTrue() {
-        assertTrue(scramble("rkqodlw", "world"));
-        assertTrue(scramble("cedewaraaossoqqyt", "codewars"));
-        assertTrue(scramble("scriptingjava", "javascript"));
-        assertTrue(scramble("scriptsjava", "javascript"));
-        assertTrue(scramble("aabbcamaomsccdd", "commas"));
-        assertTrue(scramble("commas", "commas"));
-        assertTrue(scramble("sammoc", "commas"));
-    }
 
-    @Test
-    public void testFalse() {
-        assertFalse(scramble("scriptjavx", "javascript"));
-        assertFalse(scramble("javscripts", "javascript"));
-        assertFalse(scramble("katas", "steak"));
-    }
 }

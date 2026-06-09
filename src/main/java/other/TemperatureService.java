@@ -71,14 +71,14 @@ public class TemperatureService {
     }
 
     @Value
-    public static class TemperatureRecord implements Comparable {
+    public static class TemperatureRecord implements Comparable<TemperatureRecord> {
         String city;
         String date;
         int temperature;
 
         @Override
-        public int compareTo(Object o) {
-            return date.compareTo(((TemperatureRecord) o).date);
+        public int compareTo(TemperatureRecord other) {
+            return date.compareTo(other.date);
         }
     }
 

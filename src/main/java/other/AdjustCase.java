@@ -1,22 +1,11 @@
 package other;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AdjustCase {
-
-    private final static String SUN_CORRECT = "Солнце";
-    private final static String SUN_INCORRECT1 = "сОЛнЦЕ";
-    private final static String SUN_INCORRECT2 = "солнцЕ";
-    private final static String SUN_INCORRECT3 = "солнце";
-    private final static String SUN_INCORRECT4 = "СОЛНЦЕ";
-    private final static String SUN_INCORRECT5 = "сО";
-    private final static String SUN_INCORRECT6 = "С";
     public static final String CO = "Со";
     public static final String C = "С";
     public static final String EMPTY = "";
@@ -60,40 +49,7 @@ public class AdjustCase {
     }
 
 
-    @Test
-    public void testAdjustCaseToLower() {
-        assertEquals(SUN_CORRECT, adjustCaseToLower(SUN_INCORRECT1));
-        assertEquals(SUN_CORRECT, adjustCaseToLower(SUN_INCORRECT2));
-        assertEquals(SUN_CORRECT, adjustCaseToLower(SUN_INCORRECT3));
-        assertEquals(SUN_CORRECT, adjustCaseToLower(SUN_INCORRECT4));
-        assertEquals(CO, adjustCaseToLower(SUN_INCORRECT5));
-        assertEquals(C, adjustCaseToLower(SUN_INCORRECT6));
-        assertEquals(EMPTY, adjustCaseToLower(EMPTY));
-        assertNull(adjustCaseToLower(null));
-    }
 
-    @Test
-    public void testAdjustCaseStream() {
-        assertEquals(SUN_CORRECT, adjustCaseStream(SUN_INCORRECT1));
-        assertEquals(SUN_CORRECT, adjustCaseStream(SUN_INCORRECT2));
-        assertEquals(SUN_CORRECT, adjustCaseStream(SUN_INCORRECT3));
-        assertEquals(SUN_CORRECT, adjustCaseStream(SUN_INCORRECT4));
-        assertEquals(CO, adjustCaseStream(SUN_INCORRECT5));
-        assertEquals(C, adjustCaseStream(SUN_INCORRECT6));
-        assertEquals(EMPTY, adjustCaseStream(EMPTY));
-        assertNull(adjustCaseStream(null));
-    }
 
-    @Test
-    public void testAdjustCaseFor() {
-        assertEquals(SUN_CORRECT, adjustCaseFor(SUN_INCORRECT1));
-        assertEquals(SUN_CORRECT, adjustCaseFor(SUN_INCORRECT2));
-        assertEquals(SUN_CORRECT, adjustCaseFor(SUN_INCORRECT3));
-        assertEquals(SUN_CORRECT, adjustCaseFor(SUN_INCORRECT4));
-        assertEquals(CO, adjustCaseFor(SUN_INCORRECT5));
-        assertEquals(C, adjustCaseFor(SUN_INCORRECT6));
-        assertEquals(EMPTY, adjustCaseFor(EMPTY));
-        assertNull(adjustCaseFor(null));
-    }
 
 }

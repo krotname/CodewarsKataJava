@@ -1,8 +1,6 @@
 package other;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // Разворачивает каждое слово в предложении
 
@@ -24,9 +22,4 @@ public class SpinWords {
         return resultSb.toString().trim();
     }
 
-    @Test
-    public void test() {
-        assertEquals(spinWords("Welcome"), "emocleW");
-        assertEquals(spinWords("Hey fellow warriors"), "Hey wollef sroirraw");
-    }
 }

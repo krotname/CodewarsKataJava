@@ -1,13 +1,10 @@
 package other;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class StreamMain {
 
@@ -33,81 +30,56 @@ public class StreamMain {
                     TRANSACTION_6
             );
 
-    @Test
-    public void test() {
-
-        List<Transaction> transactions1 = TRANSACTION_LIST.stream()
-                .filter(t -> t.year() == 2011)
-                .sorted(Comparator.comparing(Transaction::value))
-                .toList();
-
-        assertIterableEquals(List.of(TRANSACTION_1, TRANSACTION_4), transactions1);
-
-        List<String> cities = TRANSACTION_LIST.stream()
-                .map(t -> t.trader().city())
-                .distinct()
-                .toList();
-
-        assertIterableEquals(List.of(CAMBRIDGE, MILAN), cities);
-
-        List<Transaction> transactions2 = TRANSACTION_LIST.stream()
-                .filter(t -> t.trader().city().equals(CAMBRIDGE))
-                .sorted(Comparator.comparing(o -> o.trader().name()))
-                .toList();
-
-        List<Transaction> expectedList2 =
-                List.of(TRANSACTION_2, TRANSACTION_1, TRANSACTION_4, TRANSACTION_6);
-        assertEquals(expectedList2.size(), transactions2.size());
-        assertTrue(expectedList2.containsAll(transactions2));
-        assertTrue(transactions2.containsAll(expectedList2));
-
-        List<Trader> traders1 = TRANSACTION_LIST.stream()
-                .map(Transaction::trader)
-                .filter(t -> t.city().equals(CAMBRIDGE))
-                .sorted(Comparator.comparing(Trader::name))
-                .distinct()
-                .toList();
-
-        assertIterableEquals(List.of(ALAN, BRIAN, RAULE), traders1);
-
-        String traders = TRANSACTION_LIST.stream()
-                .map(t -> t.trader().name())
-                .sorted(String::compareTo)
-                .distinct()
-                .collect(Collectors.joining(" "))
-                .trim();
-
-        assertEquals("Alan Brian Mario Raule", traders);
-
-        boolean cambridge = TRANSACTION_LIST.stream()
-                .anyMatch(t -> t.trader().city().equals(MILAN));
-
-        assertTrue(cambridge);
-
-        int cambridgeSum = TRANSACTION_LIST.stream()
-                .filter(t -> t.trader().city().equals(CAMBRIDGE))
-                .mapToInt(Transaction::value)
-                .sum();
-
-        assertEquals(2550, cambridgeSum);
-
-        int maxSum = TRANSACTION_LIST.stream()
-                .mapToInt(Transaction::value)
-                .reduce(Integer::max)
-                .orElseThrow();
-
-        assertEquals(1000, maxSum);
-
-        Transaction transaction3 = TRANSACTION_LIST.stream()
-                .min(Comparator.comparing(Transaction::value))
-                .orElseThrow();
-
-        assertEquals(TRANSACTION_1, transaction3);
-    }
 
     private record Trader(String name, String city) {
     }
 
     private record Transaction(Trader trader, int year, int value) {
+    }
+
+    public static List<Integer> transactionsIn2011SortedByValue() {
+        return TRANSACTION_LIST.stream()
+                .filter(transaction -> transaction.year() == 2011)
+                .map(Transaction::value)
+                .sorted()
+                .toList();
+    }
+
+    public static List<String> traderCities() {
+        return TRANSACTION_LIST.stream()
+                .map(transaction -> transaction.trader().city())
+                .distinct()
+                .sorted()
+                .toList();
+    }
+
+    public static List<String> cambridgeTraderNames() {
+        return TRANSACTION_LIST.stream()
+                .map(Transaction::trader)
+                .filter(trader -> CAMBRIDGE.equals(trader.city()))
+                .map(Trader::name)
+                .distinct()
+                .sorted()
+                .toList();
+    }
+
+    public static boolean hasTraderInMilan() {
+        return TRANSACTION_LIST.stream()
+                .map(Transaction::trader)
+                .anyMatch(trader -> MILAN.equals(trader.city()));
+    }
+
+    public static int highestTransactionValue() {
+        return TRANSACTION_LIST.stream()
+                .max(Comparator.comparingInt(Transaction::value))
+                .orElseThrow()
+                .value();
+    }
+
+    public static int totalValueFromCambridge() {
+        return TRANSACTION_LIST.stream()
+                .filter(transaction -> CAMBRIDGE.equals(transaction.trader().city()))
+                .mapToInt(Transaction::value)
+                .sum();
     }
 }

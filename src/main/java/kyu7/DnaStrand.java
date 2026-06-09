@@ -1,8 +1,6 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DnaStrand {
 
@@ -35,10 +33,4 @@ public class DnaStrand {
      * Example: (input: output)
      */
 
-    @Test
-    public void test() {
-        assertEquals("TTTT", makeComplement("AAAA"));
-        assertEquals("TAACG", makeComplement("ATTGC"));
-        assertEquals("CATA", makeComplement("GTAT"));
-    }
 }

@@ -1,9 +1,12 @@
+package algorithms.sprint2;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /*
 Принцип работы алгоритма
@@ -149,6 +152,7 @@ public class Deque {
                         out.writeByte('\n');
                     }
                 }
+                default -> throw new IllegalArgumentException("Unknown command: " + cmd);
             }
         }
     }
@@ -162,13 +166,13 @@ public class Deque {
 
     // -------------------- TESTS --------------------
     private static String solveIO(String input) throws Exception {
-        ByteArrayInputStream bin = new ByteArrayInputStream(input.getBytes());
+        ByteArrayInputStream bin = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         FastIn in = new FastIn(bin);
         FastOut out = new FastOut(bout);
         process(in, out);
         out.flush();
-        return bout.toString();
+        return bout.toString(StandardCharsets.UTF_8);
     }
 
     private static void test() throws Exception {
@@ -301,7 +305,7 @@ public class Deque {
 
             int val = 0;
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
             return val * sign;
@@ -330,7 +334,7 @@ public class Deque {
                     break;
                 }
             }
-            return new String(tmp, 0, n);
+            return new String(tmp, 0, n, StandardCharsets.UTF_8);
         }
     }
 

@@ -1,3 +1,5 @@
+package algorithms.sprint6;
+
 /*
  * Принцип работы алгоритма:
  * Нужно найти максимальное остовное дерево, поэтому используем алгоритм Краскала
@@ -165,7 +167,7 @@ public class DorogayaSet {
             int val = 0;
 
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
 

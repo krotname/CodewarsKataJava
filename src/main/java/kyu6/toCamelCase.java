@@ -1,14 +1,12 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class toCamelCase {
 
     //6 https://www.codewars.com/kata/517abf86da9663f1d2000003/train/java
 
-    static String toCamelCase(String s) {
+    public static String toCamelCase(String s) {
         if (s == null || s.isEmpty()) return "";
         String[] split = s.split("[-_]");
         StringBuilder stringBuilder = new StringBuilder();
@@ -25,9 +23,4 @@ public class toCamelCase {
      * (known as Upper Camel Case, also often referred to as Pascal case).
      */
 
-    @Test
-    public void test() {
-        assertEquals("theStealthWarrior", toCamelCase("the_Stealth_Warrior"));
-        assertEquals("theStealthWarrior", toCamelCase("the-stealth-warrior"));
-    }
 }

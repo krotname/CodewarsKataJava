@@ -1,11 +1,10 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class DirReduction {
 
@@ -59,34 +58,23 @@ public class DirReduction {
     private static final String NORTH = "NORTH";
 
     public static String[] dirReduce(String[] arr) {
-        boolean edit = false;
-        ArrayList<String> resultArray = new ArrayList<>();
-        ArrayList<String> currentArray = new ArrayList<>();
-        Collections.addAll(currentArray, arr);
-        currentArray.add("");
-        for (int i = 0; i < currentArray.size() - 1; i++) {
-            if (currentArray.get(i).equalsIgnoreCase(NORTH) && currentArray.get(i + 1).equalsIgnoreCase(SOUTH) ||
-                    currentArray.get(i).equalsIgnoreCase(SOUTH) && currentArray.get(i + 1).equalsIgnoreCase(NORTH) ||
-                    currentArray.get(i).equalsIgnoreCase(EAST) && currentArray.get(i + 1).equalsIgnoreCase(WEST) ||
-                    currentArray.get(i).equalsIgnoreCase(WEST) && currentArray.get(i + 1).equalsIgnoreCase(EAST)) {
-                i++;
-                edit = true;
+        Objects.requireNonNull(arr);
+        Deque<String> reduced = new ArrayDeque<>();
+        for (String direction : arr) {
+            if (!reduced.isEmpty() && isOpposite(reduced.peekLast(), direction)) {
+                reduced.removeLast();
             } else {
-                resultArray.add(currentArray.get(i));
+                reduced.addLast(direction);
             }
         }
-        String[] result = resultArray.toArray(new String[0]);
-
-        if (!edit) {
-            return result;
-        }
-        return dirReduce(result);
+        return reduced.toArray(new String[0]);
     }
 
-    @Test
-    public void test() {
-        assertArrayEquals(new String[]{SOUTH, SOUTH, EAST}, dirReduce(new String[]{SOUTH, SOUTH, EAST}));
-        assertArrayEquals(new String[]{WEST}, dirReduce(new String[]{NORTH, SOUTH, SOUTH, EAST, WEST, NORTH, WEST}));
-        assertArrayEquals(new String[]{}, dirReduce(new String[]{NORTH, SOUTH, SOUTH, EAST, WEST, NORTH}));
+    private static boolean isOpposite(String first, String second) {
+        return first.equalsIgnoreCase(NORTH) && second.equalsIgnoreCase(SOUTH)
+                || first.equalsIgnoreCase(SOUTH) && second.equalsIgnoreCase(NORTH)
+                || first.equalsIgnoreCase(EAST) && second.equalsIgnoreCase(WEST)
+                || first.equalsIgnoreCase(WEST) && second.equalsIgnoreCase(EAST);
     }
+
 }

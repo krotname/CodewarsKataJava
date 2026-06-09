@@ -1,7 +1,10 @@
+package algorithms.sprint5;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 //https://contest.yandex.ru/contest/24810/run-report/160623687/
 
@@ -148,7 +151,7 @@ public class PyramidSort {
 
             int val = 0;
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
             return val * sign;
@@ -179,7 +182,7 @@ public class PyramidSort {
                 }
             }
 
-            return new String(tmp, 0, n);
+            return new String(tmp, 0, n, StandardCharsets.UTF_8);
         }
     }
 
@@ -290,4 +293,3 @@ public class PyramidSort {
         }
     }
 }
-

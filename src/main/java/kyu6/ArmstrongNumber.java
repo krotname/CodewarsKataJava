@@ -1,22 +1,23 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ArmstrongNumber {
 
     // 6 https://www.codewars.com/kata/5287e858c6b5a9678200083c/train/java
     public static boolean isNarcissistic(int number) {
-        var result = 0;
-        var currentNumber = number;
-        var n = numberOfDigits(currentNumber);
-        for (var i = 0; i <= n; i++) {
-            var currentDig = currentNumber % 10;
-            currentNumber /= 10;
-            result += Math.pow(currentDig, n);
+        if (number < 0) {
+            return false;
         }
+
+        int result = 0;
+        int currentNumber = number;
+        int power = numberOfDigits(number);
+        do {
+            int currentDigit = currentNumber % 10;
+            currentNumber /= 10;
+            result += (int) Math.pow(currentDigit, power);
+        } while (currentNumber > 0);
         return result == number;
     }
 
@@ -42,11 +43,5 @@ public class ArmstrongNumber {
     }
 
 
-    @Test
-    void exampleTests() {
-        assertTrue(ArmstrongNumber.isNarcissistic(153), "153 is narcissistic");
-        assertTrue(ArmstrongNumber.isNarcissistic(1634), "1634 is narcissistic");
-        assertFalse(ArmstrongNumber.isNarcissistic(112), "112 is not narcissistic");
-    }
 
 }

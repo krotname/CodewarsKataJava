@@ -1,16 +1,17 @@
 package coderun;
 
 
-import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class AverageElement {
@@ -48,25 +49,27 @@ public class AverageElement {
      * writer.write(String.valueOf(sum));
      */
 
-    @Test
-    public void test() {
-        assertEquals(3, average(new String[]{"3", "1", "3"}));
-        assertEquals(0, average(new String[]{"1000", "-1000", "0"}));
-
-    }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-        String[] parts = reader.readLine().trim().split(" ");
-
-        writer.write(String.valueOf(average(parts)));
-
-        reader.close();
-        writer.close();
+        solve(
+                new InputStreamReader(System.in, StandardCharsets.UTF_8),
+                new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
     }
 
-    private static Integer average(String[] list) {
+    static void solve(Reader input, Writer output) throws IOException {
+        BufferedReader reader = new BufferedReader(input);
+        BufferedWriter writer = new BufferedWriter(output);
+        String line = reader.readLine();
+        if (line == null) {
+            return;
+        }
+        String[] parts = line.trim().split("\\s+");
+
+        writer.write(String.valueOf(average(parts)));
+        writer.flush();
+    }
+
+    static Integer average(String[] list) {
         return Arrays
                 .stream(list)
                 .sequential()

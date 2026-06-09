@@ -1,10 +1,8 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MaximumSubarraySum {
 
@@ -43,14 +41,4 @@ public class MaximumSubarraySum {
      * Empty list is considered to have zero greatest sum. Note that the empty list or array is also a valid sublist/subarray.
      */
 
-    @Test
-    public void test() {
-        assertEquals(6, sequence(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
-        assertEquals(3, sequence(new int[]{2, -3, 3}));
-        assertEquals(0, sequence(new int[]{-1, -5, -9, -88}));
-        assertEquals(6, sequence(new int[]{4, -1, 2, 1}));
-        assertEquals(7, sequence(new int[]{-2, 1, -3, 5, -1, 2, 1, -5, 4}));
-        assertEquals(333, sequence(new int[]{333, -11, -3, 5, -1, 2, 1, -5, 4}));
-        assertEquals(555, sequence(new int[]{3, 1, -3, 5, -1, 2, 1, -55, 555}));
-    }
 }

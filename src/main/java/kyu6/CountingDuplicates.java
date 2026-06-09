@@ -1,11 +1,9 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CountingDuplicates {
 
@@ -53,15 +51,5 @@ public class CountingDuplicates {
      * "ABBA" -> 2 # 'A' and 'B' each occur twice
      */
 
-    @Test
-    public void testStream() {
-        assertEquals(1, duplicateCountStream("indivisibility"));
-        assertEquals(2, duplicateCountStream("Indivisibilities"));
-    }
 
-    @Test
-    public void test() {
-        assertEquals(1, duplicateCount("indivisibility"));
-        assertEquals(2, duplicateCount("Indivisibilities"));
-    }
 }

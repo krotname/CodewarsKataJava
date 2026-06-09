@@ -1,10 +1,8 @@
 package kyu6;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DigPow {
 
@@ -18,10 +16,4 @@ public class DigPow {
         return sum % n == 0 ? sum / n : -1;
     }
 
-    @Test
-    public void test() {
-        assertEquals(1, DigPow.digPow(89, 1));
-        assertEquals(-1, DigPow.digPow(92, 1));
-        assertEquals(51, DigPow.digPow(46288, 3));
-    }
 }

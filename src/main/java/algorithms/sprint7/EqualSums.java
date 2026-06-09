@@ -1,3 +1,5 @@
+package algorithms.sprint7;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -123,7 +125,7 @@ public class EqualSums {
             int val = 0;
 
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
 

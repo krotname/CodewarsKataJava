@@ -1,7 +1,10 @@
+package algorithms.sprint8;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /*
  * Принцип работы алгоритма:
@@ -276,7 +279,7 @@ public class PackedPrefix {
             int val = 0;
 
             while (c > ' ') {
-                val = val * 10 + (c - '0');
+                val = val * 10 + c - '0';
                 c = read();
             }
 
@@ -314,7 +317,7 @@ public class PackedPrefix {
                 }
             }
 
-            return new String(tmp, 0, n);
+            return new String(tmp, 0, n, StandardCharsets.UTF_8);
         }
     }
 

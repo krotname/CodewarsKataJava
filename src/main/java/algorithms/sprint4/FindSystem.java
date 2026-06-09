@@ -1,3 +1,5 @@
+package algorithms.sprint4;
+
 import java.io.BufferedInputStream;
 import java.io.EOFException;
 import java.io.IOException;
@@ -238,7 +240,7 @@ class FindSystem {
 
             int value = 0;
             while (c > ' ') {
-                value = value * 10 + (c - '0');
+                value = value * 10 + c - '0';
                 c = read();
             }
             return value;

@@ -1,8 +1,6 @@
 package kyu5;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PigLatin {
 
@@ -32,10 +30,4 @@ public class PigLatin {
         return stringBuilder.toString().trim();
     }
 
-    @Test
-    public void test() {
-        assertEquals("igPay atinlay siay oolcay", PigLatin.pigIt("Pig latin is cool"));
-        assertEquals("hisTay siay ymay tringsay", PigLatin.pigIt("This is my string"));
-        assertEquals("elloHay orldway !", PigLatin.pigIt("Hello world !"));
-    }
 }

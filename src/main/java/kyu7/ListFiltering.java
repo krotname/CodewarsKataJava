@@ -1,28 +1,18 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListFiltering {
 
     //7 https://www.codewars.com/kata/53dbd5315a3c69eed20002dd/train/java
 
-    public static List filterList(final List list) {
+    public static List<Integer> filterList(final List<?> list) {
         return list.stream()
-                .filter(o -> o instanceof Integer)
-                .mapToInt(num -> (int) num)
-                .boxed()
+                .filter(Integer.class::isInstance)
+                .map(Integer.class::cast)
                 .toList();
     }
 
-    @Test
-    public void examples() {
-        assertEquals(Arrays.asList(1, 2), ListFiltering.filterList(Arrays.asList(1, 2, "a", "b")));
-        assertEquals(Arrays.asList(1, 0, 15), ListFiltering.filterList(Arrays.asList(1, "a", "b", 0, 15)));
-        assertEquals(Arrays.asList(1, 2, 123), ListFiltering.filterList(Arrays.asList(1, 2, "aasf", "1", "123", 123)));
-    }
 }

@@ -1,8 +1,6 @@
 package leetcode;
 
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BestTimeToBuyAndSellStock {
 
@@ -22,7 +20,7 @@ public class BestTimeToBuyAndSellStock {
             var currentMax = 0;
             for (int j = i + 1; j < prices.length; j++) {
                 if (prices[j] > prices[i]) {
-                    currentMax = Math.max(currentMax, (prices[j] - prices[i]));
+                    currentMax = Math.max(currentMax, prices[j] - prices[i]);
                 } else {
                     break;
                 }
@@ -32,15 +30,5 @@ public class BestTimeToBuyAndSellStock {
         return maxProfits;
     }
 
-    @Test
-    public void test1() {
-        int[] input = {7, 1, 5, 3, 6, 4};
-        assertEquals(5, maxProfit1(input));
-    }
 
-    @Test
-    public void test2() {
-        int[] input = {7, 6, 4, 3, 1};
-        assertEquals(0, maxProfit1(input));
-    }
 }

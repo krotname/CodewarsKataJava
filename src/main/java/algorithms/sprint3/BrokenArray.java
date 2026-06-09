@@ -1,3 +1,5 @@
+package algorithms.sprint3;
+
 // https://contest.yandex.ru/contest/23815/run-report/159759692/
 
 public class BrokenArray {
@@ -58,7 +60,7 @@ public class BrokenArray {
         return -1;
     }
 
-    private static void test() {
+    static void test() {
         int[] arr1 = {19, 21, 100, 101, 1, 4, 5, 7, 12};
         assert 6 == brokenSearch(arr1, 5);
 

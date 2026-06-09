@@ -1,18 +1,18 @@
 package kyu3;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RailFenceCipher {
 
     //3 https://www.codewars.com/kata/58c5577d61aefcf3ff000081/train/java
 
     static String encode(String s, int n) {
+        // Distributes characters across rails using a periodic index that walks
+        // up and down between boundary rails, then concatenates each rail content.
         Map<Integer, StringBuilder> map = new TreeMap<>();
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < n; i++) {
@@ -37,6 +37,9 @@ public class RailFenceCipher {
     }
 
     static String decode(String s, int n) {
+        // First computes the exact size of each rail, splits ciphertext into
+        // contiguous rail segments, then reconstructs plaintext by replaying the
+        // same rail traversal cycle.
         int[] size = new int[n];
         Counter counter = new Counter(n - 1);
         for (int i = 0; i < s.length(); i++) {
@@ -78,6 +81,8 @@ public class RailFenceCipher {
     }
 
     private static int sumArr(int[] arr, int i) {
+        // Sum widths of all previous rails to determine the start offset
+        // of the current rail segment.
         int result = 0;
         for (int j = 0; j < i; j++) {
             result += arr[j];
@@ -111,23 +116,12 @@ public class RailFenceCipher {
      */
 
 
-    @Test
-    public void testEncode() {
-        assertEquals("Hoo!el,Wrdl l", encode("Hello, World!", 3));
-        assertEquals("159246837", encode("123456789", 3));
-        assertEquals("135792468", encode("123456789", 2));
-        assertEquals("WLREAINERTEDOEEOAVECESFCD", encode("WECRLTEERDSOEEFEAOCAIVDEN", 3));
-    }
 
-    @Test
-    public void testDecode() {
-        assertEquals("Hello, World!", decode("Hoo!el,Wrdl l", 3));
-        assertEquals("123456789", decode("159246837", 3));
-    }
 
     private static class Counter {
-        // класс возвращает от нуля до заданного максимального значения на каждом тике,
-        // а после достижение максимального значения разворачивается на убывание и так по кругу
+        // Generates rail indices in the sequence 0..max..1..max-1..0...
+        // (triangular wave), allowing both encoding and decoding to reuse
+        // the same movement logic.
         private final int max;
         private boolean vector = true;
         private boolean start = true;

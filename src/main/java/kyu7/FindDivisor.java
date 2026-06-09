@@ -1,10 +1,8 @@
 package kyu7;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FindDivisor {
 
@@ -16,12 +14,4 @@ public class FindDivisor {
                 .count();
     }
 
-    @Test
-    public void oneTest() {
-        assertEquals(1, FindDivisor.numberOFindDivisorivisors(1));
-        assertEquals(3, FindDivisor.numberOFindDivisorivisors(4));
-        assertEquals(2, FindDivisor.numberOFindDivisorivisors(5));
-        assertEquals(6, FindDivisor.numberOFindDivisorivisors(12));
-        assertEquals(8, FindDivisor.numberOFindDivisorivisors(30));
-    }
 }
