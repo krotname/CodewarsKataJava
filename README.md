@@ -5,6 +5,7 @@
 [![CodeQL](https://github.com/krotname/CodewarsKataJava/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/krotname/CodewarsKataJava/actions/workflows/codeql-analysis.yml)
 [![Coverage Gate](https://img.shields.io/badge/coverage%20gate-JaCoCo%2070%25%2B-2ea44f)](TESTING.md)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/krotname/CodewarsKataJava/badge)](https://securityscorecards.dev/viewer/?uri=github.com/krotname/CodewarsKataJava)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13151/badge)](https://www.bestpractices.dev/projects/13151)
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-0f8a16)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-17%2B-007396.svg)](https://adoptium.net/)
 [![JUnit](https://img.shields.io/badge/JUnit-6-25A162.svg)](https://junit.org/)
