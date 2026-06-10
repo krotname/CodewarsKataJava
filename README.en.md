@@ -3,7 +3,7 @@
 [![CI](https://github.com/krotname/CodewarsKataJava/actions/workflows/maven.yml/badge.svg)](https://github.com/krotname/CodewarsKataJava/actions/workflows/maven.yml)
 [![Quality Gates](https://github.com/krotname/CodewarsKataJava/actions/workflows/quality.yml/badge.svg)](https://github.com/krotname/CodewarsKataJava/actions/workflows/quality.yml)
 [![CodeQL](https://github.com/krotname/CodewarsKataJava/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/krotname/CodewarsKataJava/actions/workflows/codeql-analysis.yml)
-[![Coverage Gate](https://img.shields.io/badge/coverage%20gate-JaCoCo%2091%25%2B-2ea44f)](TESTING.md)
+[![Coverage Gate](https://img.shields.io/badge/coverage%20gate-JaCoCo%2070%25%2B-2ea44f)](TESTING.md)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/krotname/CodewarsKataJava/badge)](https://securityscorecards.dev/viewer/?uri=github.com/krotname/CodewarsKataJava)
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-0f8a16)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-17%2B-007396.svg)](https://adoptium.net/)
@@ -45,7 +45,7 @@ English | [Русский](#русский)
 - **UI tests** — not applicable (`N/A` for this repository, no UI layer).
 - **Static quality gates** — Checkstyle, PMD, SpotBugs run in Maven verify and fail the build on violations.
 - **Static artifact capture** — reports from Checkstyle/PMD/SpotBugs are attached to CI artifacts for reviewer inspection.
-- **Coverage gate** — JaCoCo fails `mvn verify` below 91% line, 85% branch and 92% instruction coverage.
+- **Coverage gate** — JaCoCo fails `mvn verify` below 70% line, branch or instruction coverage.
 
 ### CI and quality signals
 
@@ -71,6 +71,14 @@ English | [Русский](#русский)
 - Explicit bilingual documentation for contributors and users.
 - Reproducible Maven build commands.
 - Separate quality workflow for static tooling visibility.
+
+### Default branch governance note
+
+`main` intentionally uses lightweight branch governance. This is a personal educational kata journal where small solution, test, and explanation updates are often pushed directly to preserve a fast practice loop. Public quality assurance comes from CI, CodeQL, quality gates, Dependabot, the Security Policy, and reproducible local commands. Substantive changes that affect kata behavior or quality policy still use the normal PR/review workflow.
+
+### Особенность управления default branch
+
+`main` намеренно остается с облегченным branch governance. Это персональный учебный kata-журнал, где небольшие правки решений, тестов и пояснений часто вносятся напрямую, чтобы сохранять быстрый цикл тренировки. Публичные гарантии качества обеспечиваются CI, CodeQL, quality gates, Dependabot, Security Policy и воспроизводимыми локальными командами. Для содержательных изменений, влияющих на поведение задач или процесс качества, по-прежнему используется обычный PR/review-подход.
 
 ### Local run
 
