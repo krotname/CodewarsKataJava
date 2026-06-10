@@ -9,7 +9,7 @@
     <version>1.1</version>
     <name>Codewars Solutions</name>
     <description>Java kata solutions with tests and quality gates.</description>
-    <url>https://github.com/krotname/Codewars</url>
+    <url>https://github.com/krotname/CodewarsKataJava</url>
 
     <properties>
         <java.version>17</java.version>
